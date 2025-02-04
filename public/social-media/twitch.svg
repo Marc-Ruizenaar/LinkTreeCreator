@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="36" height="36" viewBox="0 0 36 36">
+  <defs>
+    <clipPath id="clip-path">
+      <path id="Path_7" data-name="Path 7" d="M18,36h0A18,18,0,0,1,0,18H0A18,18,0,0,1,18,0h0A18,18,0,0,1,36,18h0A18,18,0,0,1,18,36Z" transform="translate(-723 224)" fill="red"/>
+    </clipPath>
+    <pattern id="pattern" preserveAspectRatio="none" width="100%" height="100%" viewBox="0 0 200 134">
+      <image width="200" height="134" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAACGCAYAAACYCsWCAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAUASURBVHgB7dxLTFxlGIfxdwzUGqHBheEWEmiLShMWJK3BnWC1prCGFcEFiQtoTLw04a4GdrWmCZeVCxPWWjfsFNyVDYkr27BgqLEJKzGEKEIYzzeQtMPlz8xhzsw5h+fXTTNzAhuevO83Z2YSD26lUgbgiL29XXvJAJyIQACBQACBQACBQACBQACBQACBQACBQACBQACBQACBQACBQACBQACBQACBQACBQACBQACBQACBQACBQACBQACBQACBQACBQACBQACBQACBQACBQACBQACBQACBQACBQACBQACBQACBQACBQACBQAChxJBXj559Z3/+/ZuFXWfj1/ZySYVBI5C8SdmvT+/bD79/blHwXsOnBJIFAsmTxbVv7cfHXxjihTNIHiyu3fPi+MzcFEG8MEHOaGHtG3v4+O6xz7W0tFgqVfxotra2bGVlxZA7AjkDNzn24zgaQX19vS0vL1sYLC0tWWtrqyF3BOLT88nBWhVnnEF8WEhPDvdqFXHEHYHkaOGpmxy8WnVesGJlKeX9W0zet4dPiOM8YYJkaSF57yAO1qrzhAmShc3/ntlPT+4azh8CycLu3rYFbWNjw4aGhjIeGxwctLq6uqyvHxkZsZqaGkP+EEhIuD/42dnZjMd6e3tlIIev7+vrI5A84wwCCAQCCAQCCAQCCAQCCAQCCAQCCAQCCAQCCAQCCAQCCLwXKyQqKipscnIy40seamtr5fUTExMZj1VXVxvyi0BCwv3BH3537mnXDw8PG4LFigUIBHIO7OzsGPwhkJhbXV21np4egz8EEmMujvb2dksmkwZ/CCSmVBwdjeNWcbHecDpexYohF8WxcSQS1nl13N6/MsaXs2SJCRIzbnK0tbUdOznScVwe9+JIGLJDIDGi1qrOxi+9OMYMuWHFiokT1ypLeGeOsf3JgZwRSAy4KI5fq7w43vDWqgbi8ItAAuK+t2p0dPTU65qbm62rq+vE56empmx9fV39CJubmzsSR8I7kHe4M0cDa9VZEEhAXCCH30x4nO7u7hMDGRgYsOnpacudF8eVcbuZPnNwID8LAgmp/v5+m5mZsZwlDg7kTI68IJAQcpPDVxy2v1bdJI68IZCQ8b9WWfpA/gEH8rwikBDxv1a5O+RurTr9RQHkhkBCwnccB2sVNwGDQSAh4DcOb3AQR8AIpMjm5+dtc3PTcuXuc9y+yttHgkYgReYnDud2ozuQE0fQCCRi9ieHF0c9cRQCgURM+j4Hd8gLhkAipKPxK84cBUYgWbhYUmHvXv7khU/huf8kLPNjeYmM5/7d3bBHf3xv2agse9OaXv/whZ979PdUvXrN3qn92FBYiQe3Unz4MgAb20kbX2w49brKsrds4MYvdukC34oYNnt7u0yQYnKT486NBSu/UGUIJz5yWyRVZU3e5FgkjpBjghRBeq16+2crLyWOsCOQAqsqb0qfOYgjGlixCigdx3XiiBImSIG4OPqvuwN5pSE6CKQA9tcqL45S4ogaVqyAVV26dnDmII4oYoIEyE2OO14cZSXEEVXcSQ/IPzt/2a5tcyCPMO6kB+iV0tcM0ccZBBAIBBAIBBAIBBAIBBAIBBAIBBAIBBAIBBAIBBAIBBAIBBAIBBAIBBAIBBAIBBAIBBAIBBAIBBAIBBAIBBAIBBAIBBAIBBAIBBAIBBAIBBAIBBAIBBAIBBAIBBBKLGUfGYAjUomU/Q81OzlQafnf6AAAAABJRU5ErkJggg=="/>
+    </pattern>
+  </defs>
+  <g id="Mask_Group_1" data-name="Mask Group 1" transform="translate(723 -224)" clip-path="url(#clip-path)">
+    <rect id="image_20" data-name="image 20" width="70" height="46" transform="translate(-740 220)" fill="url(#pattern)"/>
+  </g>
+</svg>

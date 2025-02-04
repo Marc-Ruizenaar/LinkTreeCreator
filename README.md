@@ -1,2 +1,4 @@
-# task-management-tool
-Project to test my React state Hooks skills
+# Task management Tool
+
+Design:
+https://dribbble.com/shots/19752197-Task-Management-App
