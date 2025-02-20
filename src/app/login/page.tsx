@@ -30,7 +30,7 @@ export default function Login() {
     <div className="container-sm mx-auto flex h-screen w-full flex-col justify-center px-5 text-left">
       <div>
         <h1 className="text-2xl font-bold">Welcome back 👋</h1>
-        <p>Let's get started</p>
+        <p>Let&#39;s get started</p>
       </div>
       <form onSubmit={handleSubmit} className="mt-4 flex w-full flex-col gap-4">
         <input

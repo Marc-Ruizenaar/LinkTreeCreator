@@ -1,20 +1,10 @@
 "use client";
+import { Sections } from "@/types/profile";
 import React, { createContext, useContext, useState } from "react";
 
-export interface StoreSectionData {
-  id: number;
-  created_at: string;
-  user_id: string;
-  position: string;
-  href: string;
-  title: string;
-  imageSrc: string;
-  subTitle?: string;
-}
-
 interface StoreSectionContextType {
-  sections: StoreSectionData[];
-  setSections: React.Dispatch<React.SetStateAction<StoreSectionData[]>>;
+  sections: Sections[];
+  setSections: React.Dispatch<React.SetStateAction<Sections[]>>;
 }
 
 const StoreSectionContext = createContext<StoreSectionContextType>({
@@ -24,7 +14,7 @@ const StoreSectionContext = createContext<StoreSectionContextType>({
 
 export const StoreSection: React.FC<{
   children: React.ReactNode;
-  data: StoreSectionData[];
+  data: Sections[];
 }> = ({ children, data }) => {
   const [sections, setSections] = useState(data);
 
@@ -38,7 +28,9 @@ export const StoreSection: React.FC<{
 export function useStoreSections() {
   const context = useContext(StoreSectionContext);
   if (context === undefined) {
-    throw new Error("useStoreSections must be used within a StoreSectionProvider");
+    throw new Error(
+      "useStoreSections must be used within a StoreSectionProvider",
+    );
   }
   return context;
 }

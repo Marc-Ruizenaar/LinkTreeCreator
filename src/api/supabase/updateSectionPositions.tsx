@@ -1,6 +1,12 @@
 import { createClient } from "@/utils/supabase/client";
 
-export default async function updateSectionPositions(updates: number) {
+interface Position {
+  id: string | undefined;
+  user_id: string | undefined;
+  position: number;
+}
+
+export default async function updateSectionPositions(updates: Position[]) {
   const supabase = createClient();
 
   if (!updates) {

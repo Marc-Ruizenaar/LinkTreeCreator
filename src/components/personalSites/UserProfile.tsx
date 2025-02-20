@@ -15,23 +15,34 @@ import {
   FaLink,
 } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
-
 import Image from "next/image";
+import { Store } from "@/types/profile";
 
-export default function UserProfile({ storeData }) {
+interface StoreData {
+  storeData: Store;
+}
+
+export default function UserProfile({ storeData }: StoreData) {
   const currentStore = storeData;
 
-  console.log(currentStore);
+  console.log("storeData", storeData);
 
   return (
     <div className="container mx-auto flex w-1/2 flex-col items-center justify-center gap-5 p-4">
-      <Image
-        className="rounded-full"
-        src={currentStore?.profilePicture || ""}
-        alt=""
-        width={100}
-        height={100}
-      />
+      {currentStore?.profilePicture ? (
+        <Image
+          className="rounded-full"
+          src={currentStore?.profilePicture || ""}
+          alt=""
+          width={100}
+          height={100}
+        />
+      ) : (
+        <p className="flex h-[100px] w-[100px] items-center justify-center rounded-full bg-blue-600 text-4xl font-bold text-white">
+          M
+        </p>
+      )}
+
       <h1 className="text-2xl font-bold">{currentStore.displayname}</h1>
 
       <div>

@@ -1,12 +1,13 @@
 "use client";
-import { usePathname } from "next/navigation";
+import { usePathname, useParams } from "next/navigation";
 import Link from "next/link";
 import { FaArrowLeftLong } from "react-icons/fa6";
-import { useStoreProfile } from "@/context/StoreProviderContext";
+import { useUserProfile } from "@/context/UserProfileContext";
 
 export default function TopBar() {
+  const { user } = useUserProfile();
   const pathname = usePathname();
-  const { store } = useStoreProfile();
+  const params = useParams();
 
   const getBackLink = () => {
     switch (pathname) {
@@ -23,11 +24,31 @@ export default function TopBar() {
           title: "Edit Store",
         };
       default:
+        if (pathname.startsWith("/dashboard/store/section/") && params.id) {
+          return {
+            href: "/dashboard/store",
+            text: "Store",
+            title: `Store / Section ${params.id}`,
+          };
+        }
         return null;
     }
   };
 
   const backLink = getBackLink();
+
+  // Dynamically generate the page title
+  const generatePageTitle = () => {
+    if (pathname === "/dashboard") return "Home";
+    if (pathname === "/dashboard/store") return "My Store";
+    if (pathname.startsWith("/dashboard/store/section/") && params.id)
+      return `Section ${params.id}`;
+
+    // Extract last segment dynamically and capitalize it
+    const pathSegments = pathname.split("/").filter(Boolean);
+    const lastSegment = pathSegments[pathSegments.length - 1] || "Page";
+    return lastSegment.charAt(0).toUpperCase() + lastSegment.slice(1);
+  };
 
   return (
     <section className="flex w-full justify-between border-b-2 border-gray-100 px-8 py-5">
@@ -46,22 +67,16 @@ export default function TopBar() {
             </span>
           </Link>
         ) : (
-          <h2 className="text-xl font-bold">
-            {pathname === "/dashboard"
-              ? "Home"
-              : pathname === "/dashboard/store"
-                ? "My Store"
-                : "Page"}
-          </h2>
+          <h2 className="text-xl font-bold">{generatePageTitle()}</h2>
         )}
       </div>
 
       <Link
         target="_blank"
-        href={`http://localhost:3000/${store?.displayname}`}
+        href={`${process.env.NEXT_PUBLIC_BASE_URL}/${user?.displayname}`}
         className="text-gray-600 hover:text-gray-900"
       >
-        localhost:3000/{store?.displayname}
+        {`${process.env.NEXT_PUBLIC_BASE_URL}/${user?.displayname}`}
       </Link>
     </section>
   );

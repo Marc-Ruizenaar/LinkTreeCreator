@@ -1,3 +1,4 @@
+import { SocialMediaLinks } from "@/types/profile";
 import {
   FaInstagram,
   FaTiktok,
@@ -14,29 +15,12 @@ import {
   FaVimeo,
   FaLink,
 } from "react-icons/fa";
-
 import { MdEmail } from "react-icons/md";
 
 interface Socials {
   instagram: string;
   tiktok: string;
-  socialLinks: socialMedia;
-}
-
-interface socialMedia {
-  facebook: string;
-  youtube: string;
-  linkedin: string;
-  x: string;
-  twitch: string;
-  snapchat: string;
-  discord: string;
-  pinterest: string;
-  spotify: string;
-  etsy: string;
-  vimeo: string;
-  email: string;
-  website: string;
+  socialLinks: SocialMediaLinks;
 }
 
 export default function PhoneSocials({

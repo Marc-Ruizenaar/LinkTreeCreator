@@ -17,9 +17,21 @@ const raleway = Raleway({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Dashboard - Your creator Store",
-  description:
-    "We work 1-on-1 with the Top Creators to monetize their business.",
+  description: "We work 1-on-1 with the Top Creators to monetize their business.",
 };
+
+async function fetchUserData(userId: string) {
+  return await GetUser(userId);
+}
+
+async function fetchRemainingData(userId: string) {
+  const [storeData, storeSectionData] = await Promise.all([
+    GetStores(userId),
+    GetStoreSections(userId)
+  ]);
+  
+  return { storeData, storeSectionData };
+}
 
 export default async function RootLayout({
   children,
@@ -34,9 +46,11 @@ export default async function RootLayout({
     redirect("/login");
   }
 
-  const userData = await GetUser(userKey);
-  const storeData = await GetStores(userKey);
-  const storeSectionData = await GetStoreSections(userKey);
+  const user_id = userKey.user.id;
+
+  const userData = await fetchUserData(user_id);
+  
+  const { storeData, storeSectionData } = await fetchRemainingData(user_id);
 
   return (
     <html lang="en">
@@ -44,7 +58,7 @@ export default async function RootLayout({
         <UserProvider user={userKey.user}>
           <UserProfileProvider data={userData[0]}>
             <StoreProfile data={storeData?.[0]}>
-              <StoreSection data={storeSectionData}>
+              <StoreSection data={storeSectionData ?? []}>
                 <div className="flex">
                   <Sidebar />
                   <div className="flex w-4/5 flex-col">

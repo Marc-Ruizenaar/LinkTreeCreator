@@ -1,30 +1,21 @@
 "use client";
+import { MyProfile } from "@/types/profile";
 import React, { createContext, useContext, useState } from "react";
-
-interface DataUser {
-  id: string;
-  name: string;
-  displayname: string;
-  socialmedia: string[];
-  email: string;
-  phonenumber: string;
-  user_id: string;
-}
 
 interface UserProfileProviderProps {
   children: React.ReactNode;
-  data: DataUser | null;
+  data: MyProfile | null;
 }
 
 interface UserSectionContextType {
-  user: DataUser | null;
-  setUser: React.Dispatch<React.SetStateAction<DataUser | null>>;
+  user: MyProfile | null;
+  setUser: React.Dispatch<React.SetStateAction<MyProfile | null>>;
 }
 
 const UserProfileContext = createContext<UserSectionContextType | undefined>(undefined);
 
 export const UserProfileProvider: React.FC<UserProfileProviderProps> = ({ children, data }) => {
-  const [user, setUser] = useState<DataUser | null>(data);
+  const [user, setUser] = useState<MyProfile | null>(data);
 
   return (
     <UserProfileContext.Provider value={{ user, setUser }}>

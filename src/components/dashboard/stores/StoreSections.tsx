@@ -1,30 +1,37 @@
 "use client";
-import React, { useState } from "react";
-import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
+import { useState } from "react";
+import {
+  DragDropContext,
+  Droppable,
+  Draggable,
+  DropResult,
+} from "@hello-pangea/dnd";
+import { HiOutlineDuplicate } from "react-icons/hi";
+import { AiOutlineDelete } from "react-icons/ai";
+import { BsThreeDotsVertical } from "react-icons/bs";
 import Image from "next/image";
 import Link from "next/link";
 import { RxDragHandleDots2 } from "react-icons/rx";
 import { useStoreSections } from "@/context/StoreSectionsProviderContext";
 import updateSectionPositions from "@/api/supabase/updateSectionPositions";
+import { Sections } from "@/types/profile";
+import deleteSection from "@/api/supabase/delete/deleteSection";
+import duplicationSection from "@/api/supabase/duplicationSection";
 
 export default function StoreSections() {
   const { sections, setSections } = useStoreSections();
   const [isUpdating, setIsUpdating] = useState(false);
+  const [activePopup, setActivePopup] = useState<string | null>(null);
 
-  const updateSection = async (updatedSections) => {
+  const updateSection = async (updatedSections: Sections[]) => {
     try {
       setIsUpdating(true);
-
-      // Prepare the position updates
       const updates = updatedSections.map((section, index) => ({
         id: section.id,
         position: index,
         user_id: section.user_id,
       }));
-
       await updateSectionPositions(updates);
-
-      // Update context state
       setSections(updatedSections);
     } catch (error) {
       console.error("Error updating section positions:", error);
@@ -33,15 +40,62 @@ export default function StoreSections() {
     }
   };
 
-  const onDragEnd = (result) => {
+  const onDragEnd = (result: DropResult) => {
     if (!result.destination) return;
-
     const newSections = [...sections];
-    const [reorderedItem] = newSections.splice(result.source.index, 1);
+    const [reorderedItem] = newSections.splice(result.source?.index, 1);
     newSections.splice(result.destination.index, 0, reorderedItem);
-
-    // Update the database with new positions
     updateSection(newSections);
+  };
+
+  const handleDeleteSection = async (
+    section_id: string,
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    try {
+      setIsUpdating(true);
+
+      // Delete from database
+      await deleteSection(section_id);
+
+      // Remove from useState
+      setSections(sections.filter((section) => section.id !== section_id));
+    } catch (error) {
+      console.error("Error updating section positions:", error);
+    } finally {
+      setIsUpdating(false);
+    }
+  };
+
+  const handleDuplicationSection = async (
+    section_id: string,
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    try {
+      setIsUpdating(true);
+
+      // Duplicate Section
+      const duplicationSectionData = await duplicationSection(section_id);
+
+      // Add from useState
+      setSections((prevSections) => [
+        ...prevSections,
+        ...duplicationSectionData,
+      ]);
+
+      console.log(duplicationSectionData);
+      console.log(sections);
+    } catch (error) {
+      console.error("Error updating section positions:", error);
+    } finally {
+      setIsUpdating(false);
+    }
   };
 
   return (
@@ -53,33 +107,79 @@ export default function StoreSections() {
             ref={provided.innerRef}
             className="mt-4"
           >
-            {sections.map((section, index) => (
-              <Draggable
-                key={section.id.toString()}
-                draggableId={section.id.toString()}
-                index={index}
-              >
-                {(provided, snapshot) => (
-                  <Link
-                    ref={provided.innerRef}
-                    {...provided.draggableProps}
-                    {...provided.dragHandleProps}
-                    href={`section-${section.id.toString()}`}
-                    className={`mt-4 flex select-none items-center gap-5 rounded-2xl p-4 transition-colors ${isUpdating ? "opacity-70" : "opacity-100"} ${snapshot.isDragging ? "bg-gray-200" : "bg-gray-100"} `}
-                  >
-                    <RxDragHandleDots2 size={30} />
-                    <Image
-                      className="aspect-square overflow-hidden rounded"
-                      src={section.imageSrc}
-                      alt=""
-                      height={60}
-                      width={60}
-                    />
-                    <h2 className="font-bold">{section.title}</h2>
-                  </Link>
-                )}
-              </Draggable>
-            ))}
+            {sections.map((section, index) =>
+              section.id ? (
+                <Draggable
+                  key={section.id.toString()}
+                  draggableId={section.id.toString()}
+                  index={index}
+                >
+                  {(provided, snapshot) => (
+                    <Link
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                      href={`/dashboard/store/section/${section.id?.toString()}`}
+                      className={`relative mt-4 flex select-none items-center justify-between rounded-2xl p-4 transition-colors ${
+                        isUpdating ? "opacity-70" : "opacity-100"
+                      } ${snapshot.isDragging ? "bg-gray-200" : "bg-gray-100"} `}
+                    >
+                      <div className="flex items-center gap-5">
+                        <RxDragHandleDots2 size={30} />
+                        <Image
+                          className="aspect-square overflow-hidden rounded"
+                          src={section.imageSrc ?? "/placeholder.jpg"}
+                          alt={section.title ?? ""}
+                          height={60}
+                          width={60}
+                        />
+                        <h2 className="font-bold">{section.title}</h2>
+                      </div>
+
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          setActivePopup(
+                            activePopup === section.id
+                              ? null
+                              : (section.id as string),
+                          );
+                        }}
+                        className="z-40 flex h-8 w-8 items-center justify-center"
+                      >
+                        <BsThreeDotsVertical size={20} className="mr-2" />
+                      </button>
+
+                      {/* Popup */}
+                      {activePopup === section.id && (
+                        <div className="absolute right-4 top-16 z-50 flex flex-col items-baseline rounded-lg bg-white p-4 shadow-lg">
+                          <button
+                            onClick={(e) =>
+                              section.id &&
+                              handleDuplicationSection(section.id, e)
+                            }
+                            className="flex w-full items-center gap-2 rounded p-2 text-left hover:bg-gray-200"
+                          >
+                            <HiOutlineDuplicate size={20} />
+                            Duplicate section
+                          </button>
+                          <button
+                            onClick={(e) =>
+                              section.id && handleDeleteSection(section.id, e)
+                            }
+                            className="flex w-full items-center gap-2 rounded p-2 text-left hover:bg-gray-200"
+                          >
+                            <AiOutlineDelete size={20} />
+                            Delete section
+                          </button>
+                        </div>
+                      )}
+                    </Link>
+                  )}
+                </Draggable>
+              ) : null,
+            )}
             {provided.placeholder}
           </section>
         )}

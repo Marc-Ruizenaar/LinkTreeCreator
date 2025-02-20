@@ -1,14 +1,9 @@
 "use client";
 import { useState, ChangeEvent, FormEvent } from "react";
-import updateUsers from "./actions";
 import { useUserProfile } from "@/context/UserProfileContext";
-
-interface UserInfo {
-  name: string;
-  userName: string;
-  email: string;
-  phone: string;
-}
+import updateUsers from "@/api/supabase/push/myProfileUpdate";
+import { MyProfile } from "@/types/profile";
+import { IoIosClose } from "react-icons/io";
 
 interface FormErrors {
   email?: string;
@@ -22,19 +17,21 @@ interface SubSetting {
 }
 
 export default function Settings() {
-  const { user } = useUserProfile();
+  const { user, setUser } = useUserProfile();
 
-  const initialUser: UserInfo = {
+  const initialUser: MyProfile = {
+    id: user?.id || "",
     name: user?.name || "",
-    userName: user?.displayname || "",
+    displayname: user?.displayname || "",
     email: user?.email || "",
-    phone: user?.phonenumber || "",
+    phonenumber: user?.phonenumber || "",
   };
 
-  const [newUserInfo, setNewUserInfo] = useState<UserInfo>(initialUser);
+  const [newUserInfo, setNewUserInfo] = useState<MyProfile>(initialUser);
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSaving, setIsSaving] = useState(false);
   const [saveStatus, setSaveStatus] = useState("");
+  const [usernamePopup, setUsernamePopup] = useState(false);
 
   const validateEmail = (email: string): boolean => {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -42,7 +39,6 @@ export default function Settings() {
   };
 
   const validatePhone = (phone: string): boolean => {
-    // Validates phone numbers in format: +1234567890 or (123) 456-7890 or 123-456-7890
     const phoneRegex =
       /^\+?\d{1,4}?[-.\s]?\(?\d{1,3}\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/;
     return phoneRegex.test(phone);
@@ -50,6 +46,8 @@ export default function Settings() {
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+
+    // Updates the user information
     setNewUserInfo((prev) => ({
       ...prev,
       [name]: value,
@@ -71,7 +69,7 @@ export default function Settings() {
       newErrors.email = "Please enter a valid email address";
     }
 
-    if (!validatePhone(newUserInfo.phone)) {
+    if (!validatePhone(newUserInfo.phonenumber)) {
       newErrors.phone = "Please enter a valid phone number";
     }
 
@@ -82,23 +80,40 @@ export default function Settings() {
   const handleUpdateUser = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!validateForm()) {
-      return;
+    if (!validateForm()) return;
+    if (!user) return;
+
+    // Check if username has changed before saving
+    if (newUserInfo.displayname !== user.displayname) {
+      setUsernamePopup(true);
+      return; // Stop here and wait for user confirmation
     }
 
+    await saveUserChanges();
+  };
+
+  const saveUserChanges = async () => {
     setIsSaving(true);
     setSaveStatus("Saving...");
 
     try {
-      await updateUsers(newUserInfo, user?.id);
-      setSaveStatus("Saved!");
+      if (user) {
+        await updateUsers(newUserInfo, user.id);
 
-      setTimeout(() => {
-        setSaveStatus("");
-      }, 2000);
+        // Update user state after successful update
+        setUser((prevUser) => ({
+          ...prevUser,
+          ...newUserInfo,
+        }));
+
+        setSaveStatus("Saved!");
+
+        setTimeout(() => {
+          setSaveStatus("");
+        }, 2000);
+      }
     } catch (error) {
-
-      console.log(error);
+      console.error(error);
       setSaveStatus("Error saving");
     } finally {
       setIsSaving(false);
@@ -151,13 +166,13 @@ export default function Settings() {
               />
             </div>
             <div>
-              <label htmlFor="userName">Username:</label>
+              <label htmlFor="displayname">Username:</label>
               <input
                 className="input-field"
                 type="text"
-                id="userName"
-                name="userName"
-                value={newUserInfo.userName}
+                id="displayname"
+                name="displayname"
+                value={newUserInfo.displayname}
                 onChange={handleInputChange}
                 required
               />
@@ -181,13 +196,13 @@ export default function Settings() {
               )}
             </div>
             <div>
-              <label htmlFor="phone">Phone Number:</label>
+              <label htmlFor="phonenumber">Phone Number:</label>
               <input
                 className={`input-field ${errors.phone ? "border-red-500" : ""}`}
                 type="tel"
-                id="phone"
-                name="phone"
-                value={newUserInfo.phone}
+                id="phonenumber"
+                name="phonenumber"
+                value={newUserInfo.phonenumber}
                 onChange={handleInputChange}
                 required
               />
@@ -213,6 +228,36 @@ export default function Settings() {
             )}
           </div>
         </form>
+
+        {usernamePopup && (
+          <div>
+            <div className="absolute left-1/2 top-1/2 z-50 flex -translate-x-1/2 -translate-y-1/2 transform flex-col items-center gap-4 bg-white p-10 text-center">
+              <button
+                className="absolute right-4 top-4"
+                onClick={() => setUsernamePopup(false)}
+              >
+                <IoIosClose size={30} />
+              </button>
+              <p>
+                You&apos;re about to change your username, this also changes
+                your store URL. Make sure to update your store URL:
+              </p>
+              <div>
+                <b>New link</b>
+                <p>{`${process.env.NEXT_PUBLIC_BASE_URL}/${newUserInfo.displayname}`}</p>
+              </div>
+
+              <button
+                className="w-max rounded bg-blue-600 px-10 py-2 text-sm font-bold text-white disabled:opacity-50"
+                onClick={() => handleUpdateUser}
+              >
+                Update
+              </button>
+            </div>
+
+            <div className="absolute left-0 top-0 h-full w-full bg-slate-800/55"></div>
+          </div>
+        )}
       </section>
     </main>
   );

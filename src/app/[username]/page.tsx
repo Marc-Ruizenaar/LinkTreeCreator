@@ -4,12 +4,14 @@ import UserProfile from "@/components/personalSites/UserProfile";
 import { notFound } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
+import Sections from "@/components/personalSites/Sections";
+import { Store } from "@/types/profile";
 
 export default function StorePage() {
   const params = useParams<{ username: string }>();
-  const [storeData, setStoreData] = useState<any | null>(null);
+  const [storeData, setStoreData] = useState<Store>();
   const [isLoading, setIsLoading] = useState(true);
-
+  
   useEffect(() => {
     async function fetchStores() {
       try {
@@ -39,8 +41,9 @@ export default function StorePage() {
   }
 
   return (
-    <main>
+    <main className="container-sm mx-5 md:mx-auto">
       <UserProfile storeData={storeData} />
+      <Sections storeData={storeData} />
     </main>
   );
 }

@@ -1,29 +1,14 @@
 import PhoneSocials from "./PhoneSocials";
 import PhoneUserData from "./PhoneUserData";
 import PhoneSections from "./PhoneSections";
+import { SocialMediaLinks } from "@/types/profile";
 
 interface userInfo {
   displayname: string;
   bio: string;
   instagram: string;
   tiktok: string;
-  socialLinks: socialMedia;
-}
-
-interface socialMedia {
-  facebook: string;
-  youtube: string;
-  linkedin: string;
-  x: string;
-  twitch: string;
-  snapchat: string;
-  discord: string;
-  pinterest: string;
-  spotify: string;
-  etsy: string;
-  vimeo: string;
-  email: string;
-  website: string;
+  socialLinks: SocialMediaLinks;
 }
 
 export default function PhoneSimulator({

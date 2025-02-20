@@ -1,5 +1,4 @@
 "use client";
-import React from "react";
 import Link from "next/link";
 import {
   FaInstagram,
@@ -8,69 +7,142 @@ import {
   FaYoutube,
   FaLinkedin,
   FaTwitter,
+  FaSpotify,
+  FaPinterest,
   FaTwitch,
   FaSnapchat,
   FaDiscord,
+  FaEtsy,
+  FaVimeo,
+  FaLink,
 } from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
 import Image from "next/image";
 import { useStoreProfile } from "@/context/StoreProviderContext";
-import { DataUser } from "@/context/StoreProviderContext";
 import { useUserProfile } from "@/context/UserProfileContext";
 
 export default function Header() {
   const { store } = useStoreProfile();
   const { user } = useUserProfile();
 
-  const socialMediaPlatforms = {
-    instagram: { icon: FaInstagram, baseUrl: "https://instagram.com/" },
-    tiktok: { icon: FaTiktok, baseUrl: "https://tiktok.com/@" },
-    facebook: { icon: FaFacebook, baseUrl: "https://facebook.com/" },
-    youtube: { icon: FaYoutube, baseUrl: "https://youtube.com/" },
-    linkedin: { icon: FaLinkedin, baseUrl: "https://linkedin.com/in/" },
-    x: { icon: FaTwitter, baseUrl: "https://x.com/" },
-    twitch: { icon: FaTwitch, baseUrl: "https://twitch.tv/" },
-    snapchat: { icon: FaSnapchat, baseUrl: "https://snapchat.com/add/" },
-    discord: { icon: FaDiscord, baseUrl: "https://discord.com/" },
-  };
-
-  if (store) {
-    return (
-      <Link
-        href="/dashboard/profile"
-        className="flex gap-5 rounded-2xl bg-gray-100 p-4"
-      >
+  return (
+    <Link
+      href="/dashboard/profile"
+      className="flex gap-5 rounded-2xl bg-gray-100 p-4"
+    >
+      {store?.profilePicture ? (
         <Image
           className="aspect-square overflow-hidden rounded"
           src={store?.profilePicture || "/default-avatar.png"}
           alt=""
           height={120}
           width={120}
+          priority
         />
-        <div className="flex flex-col justify-between py-2">
-          <div>
-            <p className="text-xl font-bold">{user?.name}</p>
-            <p className="text-gray-500">@{store.displayname}</p>
-          </div>
+      ) : (
+        <p className="flex h-[100px] w-[100px] items-center justify-center rounded-full bg-blue-600 text-4xl font-bold text-white">
+          M
+        </p>
+      )}
 
-          <div className="flex gap-2">
-            {Object.entries(socialMediaPlatforms).map(
-              ([platform, { icon: Icon }]) => {
-                const username = store[platform as keyof DataUser];
-                return (
-                  username && (
-                    <div
-                      key={platform}
-                      className="transition-colors hover:text-blue-500"
-                    >
-                      <Icon size={20} />
-                    </div>
-                  )
-                );
-              },
-            )}
-          </div>
+      <div className="flex flex-col justify-between py-2">
+        <div>
+          <p className="text-xl font-bold">{user?.name}</p>
+          <p className="text-gray-500">@{store?.displayname}</p>
         </div>
-      </Link>
-    );
-  }
+
+        <div className="flex gap-1">
+          {store?.tiktok && (
+            <div>
+              <FaTiktok size={25} />
+            </div>
+          )}
+
+          {store?.instagram && (
+            <div>
+              <FaInstagram size={25} />
+            </div>
+          )}
+
+          {store?.facebook && (
+            <div>
+              <FaFacebook size={25} />
+            </div>
+          )}
+
+          {store?.youtube && (
+            <div>
+              <FaYoutube size={25} />
+            </div>
+          )}
+
+          {store?.linkedin && (
+            <div>
+              <FaLinkedin size={25} />
+            </div>
+          )}
+
+          {store?.x && (
+            <div>
+              <FaTwitter size={25} />
+            </div>
+          )}
+
+          {store?.pinterest && (
+            <div>
+              <FaPinterest size={25} />
+            </div>
+          )}
+
+          {store?.spotify && (
+            <div>
+              <FaSpotify size={25} />
+            </div>
+          )}
+
+          {store?.etsy && (
+            <div>
+              <FaEtsy size={25} />
+            </div>
+          )}
+
+          {store?.discord && (
+            <div>
+              <FaDiscord size={25} />
+            </div>
+          )}
+
+          {store?.snapchat && (
+            <div>
+              <FaSnapchat size={25} />
+            </div>
+          )}
+
+          {store?.twitch && (
+            <div>
+              <FaTwitch size={25} />
+            </div>
+          )}
+
+          {store?.vimeo && (
+            <div>
+              <FaVimeo size={25} />
+            </div>
+          )}
+
+          {store?.email && (
+            <div>
+              <MdEmail size={25} />
+            </div>
+          )}
+
+          {store?.website && (
+            <div>
+              <FaLink size={20} />
+            </div>
+          )}
+        </div>
+      </div>
+    </Link>
+  );
 }

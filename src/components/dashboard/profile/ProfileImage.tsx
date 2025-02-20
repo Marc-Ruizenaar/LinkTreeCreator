@@ -57,13 +57,18 @@ export default function ProfileImage() {
       )}
 
       <div className={`relative ${isUploading ? "opacity-50" : ""}`}>
-        <Image
-          className="aspect-square rounded-full object-cover"
-          src={store?.profilePicture || "/default-avatar.png"}
-          alt="Profile Picture"
-          width={100}
-          height={100}
-        />
+        {store?.profilePicture ? (
+          <Image
+            className="aspect-square rounded-full object-cover"
+            src={store.profilePicture || "/default-avatar.png"}
+            alt="Profile Picture"
+            width={100}
+            height={100}
+          />
+        ) : (
+          <p className="flex h-[100px] w-[100px] items-center justify-center rounded-full bg-blue-600 text-4xl font-bold text-white">M</p>
+        )}
+
         {isUploading && (
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="h-6 w-6 animate-spin rounded-full border-2 border-blue-500 border-t-transparent"></div>
