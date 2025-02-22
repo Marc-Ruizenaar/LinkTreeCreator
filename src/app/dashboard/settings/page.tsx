@@ -246,7 +246,7 @@ export default function Settings() {
                 <IoIosClose size={30} />
               </button>
               <p>
-                You're about to change your username, this also changes
+                You&apos;re about to change your username, this also changes
                 your store URL. Make sure to update your store URL:
               </p>
               <div>

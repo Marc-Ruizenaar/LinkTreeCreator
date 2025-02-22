@@ -5,7 +5,6 @@ import sectionPictureDatabase from "@/api/supabase/push/sectionPictureDatabase";
 import sectionUpdate from "@/api/supabase/push/sectionUpdate";
 import SectionPhone from "@/components/dashboard/stores/section-id/SectionPhone";
 import { useStoreSections } from "@/context/StoreSectionsProviderContext";
-import { useUserProfile } from "@/context/UserProfileContext";
 import { Sections } from "@/types/profile";
 import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
