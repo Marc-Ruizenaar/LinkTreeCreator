@@ -49,7 +49,7 @@ export default function Sidebar() {
             >
               {store?.profilePicture ? (
                 <Image
-                  className="h-10 w-10 rounded-full"
+                  className="h-10 w-10 rounded-full object-cover"
                   alt=""
                   src={store?.profilePicture || "/default-avatar.png"}
                   height={100}

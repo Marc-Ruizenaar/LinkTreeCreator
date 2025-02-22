@@ -96,7 +96,9 @@ export default function StoreSections() {
     } finally {
       setIsUpdating(false);
     }
+    
   };
+
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
@@ -109,6 +111,7 @@ export default function StoreSections() {
           >
             {sections.map((section, index) =>
               section.id ? (
+                
                 <Draggable
                   key={section.id.toString()}
                   draggableId={section.id.toString()}
@@ -127,7 +130,7 @@ export default function StoreSections() {
                       <div className="flex items-center gap-5">
                         <RxDragHandleDots2 size={30} />
                         <Image
-                          className="aspect-square overflow-hidden rounded"
+                          className="aspect-square object-cover overflow-hidden rounded"
                           src={section.imageSrc ?? "/placeholder.jpg"}
                           alt={section.title ?? ""}
                           height={60}

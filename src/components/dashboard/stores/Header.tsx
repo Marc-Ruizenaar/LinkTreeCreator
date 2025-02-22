@@ -32,7 +32,7 @@ export default function Header() {
     >
       {store?.profilePicture ? (
         <Image
-          className="aspect-square overflow-hidden rounded"
+          className="aspect-square object-cover overflow-hidden rounded"
           src={store?.profilePicture || "/default-avatar.png"}
           alt=""
           height={120}

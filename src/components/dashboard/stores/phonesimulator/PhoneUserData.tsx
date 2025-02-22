@@ -9,7 +9,7 @@ export default function PhoneUserData({ displayname, bio }: Store) {
     <div className="flex flex-col items-center gap-3">
       {store?.profilePicture ? (
         <Image
-          className="rounded-full"
+          className="rounded-full object-cover"
           src={store.profilePicture || "/default-avatar.png"}
           alt=""
           width={100}

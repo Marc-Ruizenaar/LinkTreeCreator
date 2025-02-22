@@ -77,7 +77,7 @@ export default function Settings() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleUpdateUser = async (e: FormEvent<HTMLFormElement>) => {
+  const handleUpdateUser = async (e: FormEvent) => {
     e.preventDefault();
 
     if (!validateForm()) return;
@@ -86,11 +86,17 @@ export default function Settings() {
     // Check if username has changed before saving
     if (newUserInfo.displayname !== user.displayname) {
       setUsernamePopup(true);
-      return; // Stop here and wait for user confirmation
+
+      return;
     }
 
     await saveUserChanges();
   };
+
+  const handlePopupUpdate = async () => {
+    await saveUserChanges();
+  };
+
 
   const saveUserChanges = async () => {
     setIsSaving(true);
@@ -117,6 +123,7 @@ export default function Settings() {
       setSaveStatus("Error saving");
     } finally {
       setIsSaving(false);
+      setUsernamePopup(false);
     }
   };
 
@@ -239,7 +246,7 @@ export default function Settings() {
                 <IoIosClose size={30} />
               </button>
               <p>
-                You&apos;re about to change your username, this also changes
+                You're about to change your username, this also changes
                 your store URL. Make sure to update your store URL:
               </p>
               <div>
@@ -249,7 +256,7 @@ export default function Settings() {
 
               <button
                 className="w-max rounded bg-blue-600 px-10 py-2 text-sm font-bold text-white disabled:opacity-50"
-                onClick={() => handleUpdateUser}
+                onClick={handlePopupUpdate}
               >
                 Update
               </button>

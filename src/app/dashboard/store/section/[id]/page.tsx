@@ -1,9 +1,11 @@
 "use client";
 
 import SectionPictureBucket from "@/api/supabase/push/sectionPictureBucket";
+import sectionPictureDatabase from "@/api/supabase/push/sectionPictureDatabase";
 import sectionUpdate from "@/api/supabase/push/sectionUpdate";
 import SectionPhone from "@/components/dashboard/stores/section-id/SectionPhone";
 import { useStoreSections } from "@/context/StoreSectionsProviderContext";
+import { useUserProfile } from "@/context/UserProfileContext";
 import { Sections } from "@/types/profile";
 import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
@@ -17,11 +19,10 @@ interface SectionPageProps {
 export default function SectionPage({ params }: SectionPageProps) {
   const unwrappedParams = use(params);
   const numericSectionId = parseInt(unwrappedParams.id, 10);
-  const stringSectionId = String(numericSectionId); // Convert to string here
+  const stringSectionId = String(numericSectionId);
 
   const { sections, setSections } = useStoreSections();
   const fileInputRef = useRef<HTMLInputElement>(null);
-
   const [currentSection, setCurrentSection] = useState<Sections | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
@@ -75,14 +76,10 @@ export default function SectionPage({ params }: SectionPageProps) {
           newImageUrl.fullPath;
         setImage(fullUrl);
 
-        await sectionUpdate(
-          {
-            id: stringSectionId,
-            ...currentSection,
-            imageSrc: fullUrl,
-          },
-          stringSectionId,
-        );
+        if (currentSection) {
+          const currentID = currentSection.id != null ? currentSection.id : "";
+          await sectionPictureDatabase(fullUrl, currentID);
+        }
       }
     } catch (err) {
       setError("Failed to upload image.");
