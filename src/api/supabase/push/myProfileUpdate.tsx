@@ -5,7 +5,7 @@ export default async function updateUsers(newUserInfo: MyProfile, id: string) {
   const supabase = createClient();
 
   const name = newUserInfo.name;
-  const displayname = newUserInfo.displayname;
+  const username = newUserInfo.username;
   const email = newUserInfo.email;
   const phonenumber = newUserInfo.phonenumber;
 
@@ -13,7 +13,7 @@ export default async function updateUsers(newUserInfo: MyProfile, id: string) {
     .from("users")
     .update({
       name: name,
-      displayname: displayname,
+      username: username,
       email: email,
       phonenumber: phonenumber,
     })

@@ -50,7 +50,7 @@ export default function UserProfile({ userData, storeData }: StoreData) {
 
       <div>
         <div className="flex flex-wrap items-center justify-center gap-2">
-          {currentStore.tiktok && (
+          {currentStore?.tiktok && (
             <a
               href={`https://www.tiktok.com/@${currentStore.tiktok}`}
               target="_blank"
@@ -59,7 +59,7 @@ export default function UserProfile({ userData, storeData }: StoreData) {
             </a>
           )}
 
-          {currentStore.instagram && (
+          {currentStore?.instagram && (
             <a
               href={`https://www.instagram.com/${currentStore.instagram}`}
               target="_blank"
@@ -68,7 +68,7 @@ export default function UserProfile({ userData, storeData }: StoreData) {
             </a>
           )}
 
-          {currentStore.facebook && (
+          {currentStore?.facebook && (
             <a
               href={`https://www.facebook.com/${currentStore.facebook}`}
               target="_blank"
@@ -77,7 +77,7 @@ export default function UserProfile({ userData, storeData }: StoreData) {
             </a>
           )}
 
-          {currentStore.youtube && (
+          {currentStore?.youtube && (
             <a
               href={`https://www.youtube.com/${currentStore.youtube}`}
               target="_blank"
@@ -86,7 +86,7 @@ export default function UserProfile({ userData, storeData }: StoreData) {
             </a>
           )}
 
-          {currentStore.linkedin && (
+          {currentStore?.linkedin && (
             <a
               href={`https://www.linkedin.com/in/${currentStore.linkedin}`}
               target="_blank"
@@ -95,13 +95,13 @@ export default function UserProfile({ userData, storeData }: StoreData) {
             </a>
           )}
 
-          {currentStore.x && (
+          {currentStore?.x && (
             <a href={`https://twitter.com/${currentStore.x}`} target="_blank">
               <FaTwitter size={25} />
             </a>
           )}
 
-          {currentStore.pinterest && (
+          {currentStore?.pinterest && (
             <a
               href={`https://www.pinterest.com/${currentStore.pinterest}`}
               target="_blank"
@@ -110,7 +110,7 @@ export default function UserProfile({ userData, storeData }: StoreData) {
             </a>
           )}
 
-          {currentStore.spotify && (
+          {currentStore?.spotify && (
             <a
               href={`https://open.spotify.com/user/${currentStore.spotify}`}
               target="_blank"
@@ -119,7 +119,7 @@ export default function UserProfile({ userData, storeData }: StoreData) {
             </a>
           )}
 
-          {currentStore.etsy && (
+          {currentStore?.etsy && (
             <a
               href={`https://www.etsy.com/shop/${currentStore.etsy}`}
               target="_blank"
@@ -128,7 +128,7 @@ export default function UserProfile({ userData, storeData }: StoreData) {
             </a>
           )}
 
-          {currentStore.discord && (
+          {currentStore?.discord && (
             <a
               href={`https://discord.com/users/${currentStore.discord}`}
               target="_blank"
@@ -137,7 +137,7 @@ export default function UserProfile({ userData, storeData }: StoreData) {
             </a>
           )}
 
-          {currentStore.snapchat && (
+          {currentStore?.snapchat && (
             <a
               href={`https://www.snapchat.com/add/${currentStore.snapchat}`}
               target="_blank"
@@ -146,7 +146,7 @@ export default function UserProfile({ userData, storeData }: StoreData) {
             </a>
           )}
 
-          {currentStore.twitch && (
+          {currentStore?.twitch && (
             <a
               href={`https://www.twitch.tv/${currentStore.twitch}`}
               target="_blank"
@@ -155,19 +155,19 @@ export default function UserProfile({ userData, storeData }: StoreData) {
             </a>
           )}
 
-          {currentStore.vimeo && (
+          {currentStore?.vimeo && (
             <a href={`https://vimeo.com/${currentStore.vimeo}`} target="_blank">
               <FaVimeo size={25} />
             </a>
           )}
 
-          {currentStore.email && (
+          {currentStore?.email && (
             <a href={`mailto:${currentStore.email}`}>
               <MdEmail size={25} />
             </a>
           )}
 
-          {currentStore.website && (
+          {currentStore?.website && (
             <a href={currentStore.website} target="_blank">
               <FaLink size={20} />
             </a>
