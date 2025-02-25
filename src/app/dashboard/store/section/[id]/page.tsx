@@ -255,7 +255,11 @@ export default function SectionPage({ params }: SectionPageProps) {
           </div>
           <div className="mt-4 flex flex-col gap-4">
             <label className="text-sm" htmlFor="title">
-              Title
+              <div className="flex justify-between">
+                Title
+                <span className="text-gray-400">{title.length}/18</span>
+              </div>
+
               <input
                 className="input-field mt-1"
                 type="text"
@@ -264,13 +268,17 @@ export default function SectionPage({ params }: SectionPageProps) {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="Input Heading Here"
+                maxLength={18}
               />
             </label>
           </div>
 
           <div className="mt-4 flex flex-col gap-4">
-            <label className="text-sm" htmlFor="subTitle">
-              Subtitle
+            <label className="text-sm" htmlFor="subTitle">  
+              <div className="flex justify-between">
+                Subtitle
+                <span className="text-gray-400">{subTitle.length}/65</span>
+              </div>
               <input
                 className="input-field mt-1"
                 type="text"
@@ -279,6 +287,7 @@ export default function SectionPage({ params }: SectionPageProps) {
                 value={subTitle}
                 onChange={(e) => setSubTitle(e.target.value)}
                 placeholder="Input Heading Here"
+                maxLength={65}
               />
             </label>
           </div>
@@ -294,6 +303,7 @@ export default function SectionPage({ params }: SectionPageProps) {
                 value={buttonText}
                 onChange={(e) => setButtonText(e.target.value)}
                 placeholder="Input Heading Here"
+                maxLength={26}
               />
             </label>
           </div>

@@ -1,9 +1,9 @@
 "use client";
 import ProfileImage from "@/components/dashboard/profile/ProfileImage";
 import SocialMediaInput from "@/components/dashboard/profile/SocialMedia";
-import UpdateStoreProfileData from "@/api/supabase/updateUsers";
 import { useState } from "react";
 import { SocialMediaLinks } from "@/types/profile";
+import updateStoreProfileData from "@/api/supabase/push/updateStoreProfileData";
 
 interface ProfileFormProps {
   displayname: string;
@@ -51,7 +51,7 @@ export default function ProfileForm({
 
     try {
       if (user_id) {
-        await UpdateStoreProfileData(data, user_id);
+        await updateStoreProfileData(data, user_id);
         setSaveStatus("Saved!");
       }
     } catch (error) {

@@ -22,7 +22,7 @@ export default function Settings() {
   const initialUser: MyProfile = {
     id: user?.id || "",
     name: user?.name || "",
-    displayname: user?.displayname || "",
+    username: user?.username || "",
     email: user?.email || "",
     phonenumber: user?.phonenumber || "",
   };
@@ -84,7 +84,7 @@ export default function Settings() {
     if (!user) return;
 
     // Check if username has changed before saving
-    if (newUserInfo.displayname !== user.displayname) {
+    if (newUserInfo.username !== user.username) {
       setUsernamePopup(true);
 
       return;
@@ -173,13 +173,13 @@ export default function Settings() {
               />
             </div>
             <div>
-              <label htmlFor="displayname">Username:</label>
+              <label htmlFor="username">Username:</label>
               <input
                 className="input-field"
                 type="text"
-                id="displayname"
-                name="displayname"
-                value={newUserInfo.displayname}
+                id="username"
+                name="username"
+                value={newUserInfo.username}
                 onChange={handleInputChange}
                 required
               />
@@ -251,7 +251,7 @@ export default function Settings() {
               </p>
               <div>
                 <b>New link</b>
-                <p>{`${process.env.NEXT_PUBLIC_BASE_URL}/${newUserInfo.displayname}`}</p>
+                <p>{`${process.env.NEXT_PUBLIC_BASE_URL}/${newUserInfo.username}`}</p>
               </div>
 
               <button

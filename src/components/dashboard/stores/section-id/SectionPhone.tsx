@@ -9,7 +9,7 @@ export default function SectionPhone({
   buttonText,
   imageSrc,
   buttonStyle,
-}: Sections ) {
+}: Sections) {
   switch (buttonStyle) {
     case 1:
       return (
@@ -34,7 +34,7 @@ export default function SectionPhone({
                   href={href || "/"}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-4 block w-full rounded-xl bg-blue-600 px-5 py-3 font-bold text-white text-center"
+                  className="mt-4 block w-full rounded-xl bg-blue-600 px-5 py-3 text-center font-bold text-white"
                 >
                   {buttonText}
                 </Link>
@@ -64,7 +64,9 @@ export default function SectionPhone({
                 />
                 <div>
                   <h3 className="font-bold">{title}</h3>
-                  {subTitle && <p className="text-sm">{subTitle}</p>}
+                  {subTitle && (
+                    <p className="break-all text-sm">{subTitle}</p>
+                  )}
                 </div>
               </div>
             </Link>
@@ -95,7 +97,7 @@ export default function SectionPhone({
                   href={href || "/"}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-4 block w-full rounded-xl bg-blue-600 px-5 py-3 font-bold text-white text-center"
+                  className="mt-4 block w-full rounded-xl bg-blue-600 px-5 py-3 text-center font-bold text-white"
                 >
                   {buttonText}
                 </Link>

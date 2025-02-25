@@ -1,12 +1,12 @@
 import { createClient } from "@/utils/supabase/client";
 
-export default async function getStores(params: string) {
+export default async function getStoreBasedOnUsername(params: string) {
   const supabase = createClient();
 
   const { error, data } = await supabase
-    .from("stores")
+    .from("users")
     .select()
-    .eq("displayname", params);
+    .eq("username", params);
 
   if (error) {
     console.error("Error updating store profile:", error);

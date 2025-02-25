@@ -23,7 +23,7 @@ export default function PhoneSections() {
             return (
               <div
                 key={section.id}
-                className="shadow-section w-full rounded-xl bg-white p-4"
+                className="shadow-section w-full break-all rounded-xl bg-white p-4"
               >
                 <div className="flex items-center gap-4 text-left">
                   <Image
@@ -35,14 +35,14 @@ export default function PhoneSections() {
                   />
                   <div>
                     <h3 className="font-bold">{section.title}</h3>
-                    <p className="text-sm">{section.subTitle}</p>
+                    <p className="break-all text-sm">{section.subTitle}</p>
                   </div>
                 </div>
                 <Link
                   href={section.href ?? "/"}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-4 block w-full rounded-xl bg-blue-600 px-5 py-3 font-bold text-white text-center"
+                  className="mt-4 block w-full rounded-xl bg-blue-600 px-5 py-3 text-center font-bold text-white"
                 >
                   {section.buttonText}
                 </Link>
@@ -67,7 +67,7 @@ export default function PhoneSections() {
                   />
                   <div>
                     <h3 className="font-bold">{section.title}</h3>
-                    <p className="text-sm">{section.subTitle}</p>
+                    <p className="break-all text-sm">{section.subTitle}</p>
                   </div>
                 </div>
               </Link>
@@ -88,7 +88,7 @@ export default function PhoneSections() {
                   />
                   <div>
                     <h3 className="font-bold">{section.title}</h3>
-                    <p className="text-sm">{section.subTitle}</p>
+                    <p className="break-all text-sm">{section.subTitle}</p>
                   </div>
                 </div>
                 {section.buttonText && (
@@ -96,7 +96,7 @@ export default function PhoneSections() {
                     href={section.href ?? "/"}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-4 block w-full rounded-xl bg-blue-600 px-5 py-3 font-bold text-white text-center"
+                    className="mt-4 block w-full rounded-xl bg-blue-600 px-5 py-3 text-center font-bold text-white"
                   >
                     {section.buttonText}
                   </Link>

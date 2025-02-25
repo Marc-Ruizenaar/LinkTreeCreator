@@ -73,10 +73,10 @@ export default function TopBar() {
 
       <Link
         target="_blank"
-        href={`${process.env.NEXT_PUBLIC_BASE_URL}/${user?.displayname}`}
+        href={`${process.env.NEXT_PUBLIC_BASE_URL}/${user?.username}`}
         className="text-gray-600 hover:text-gray-900"
       >
-        {`${process.env.NEXT_PUBLIC_BASE_URL}/${user?.displayname}`}
+        {`${process.env.NEXT_PUBLIC_BASE_URL}/${user?.username}`}
       </Link>
     </section>
   );

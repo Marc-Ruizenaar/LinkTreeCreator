@@ -16,16 +16,19 @@ import {
 } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import Image from "next/image";
-import { Store } from "@/types/profile";
+import { MyProfile, Store } from "@/types/profile";
 
 interface StoreData {
-  storeData: Store;
+  userData: MyProfile;
+  storeData: Store[] | null;
 }
 
-export default function UserProfile({ storeData }: StoreData) {
-  const currentStore = storeData;
+export default function UserProfile({ userData, storeData }: StoreData) {
 
-  console.log("storeData", storeData);
+  console.log(storeData);
+
+    const currentStore = storeData ? storeData[0] : null;
+
 
   return (
     <div className="container mx-auto flex w-1/2 flex-col items-center justify-center gap-5 p-4">
@@ -43,7 +46,7 @@ export default function UserProfile({ storeData }: StoreData) {
         </p>
       )}
 
-      <h1 className="text-2xl font-bold">{currentStore.displayname}</h1>
+      <h1 className="text-2xl font-bold">{userData.username}</h1>
 
       <div>
         <div className="flex flex-wrap items-center justify-center gap-2">

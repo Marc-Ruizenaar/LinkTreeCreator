@@ -28,7 +28,7 @@ export interface MyProfile {
   created_at?: string;
   user_id?: string;
   name: string;
-  displayname: string;
+  username: string;
   email: string;
   phonenumber: string;
 }

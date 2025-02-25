@@ -1,6 +1,6 @@
-import { createClient } from "@/utils/supabase/server";
+import { createClient } from "@/utils/supabase/client";
 
-export default async function GetStores(user_id: string) {
+export default async function getStoresData(user_id: string) {
   const supabase = await createClient();
 
   const { data: storeData } = await supabase

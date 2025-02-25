@@ -17,7 +17,7 @@ interface Section {
 }
 
 interface SectionsProps {
-  storeData: Store;
+  userData: Store;
 }
 
 function SectionItemDiv({ section }: { section: Section }) {
@@ -89,19 +89,19 @@ function SectionItemLink({ section }: { section: Section }) {
   );
 }
 
-export default function Sections({ storeData }: SectionsProps) {
+export default function Sections({ userData }: SectionsProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [sections, setSections] = useState<Section[]>([]);
 
   useEffect(() => {
     async function fetchSections() {
-      if (!storeData.user_id) {
+      if (!userData.user_id) {
         setIsLoading(false);
         return;
       }
 
       try {
-        const fetchedSections = await getSectionsPublic(storeData.user_id);
+        const fetchedSections = await getSectionsPublic(userData.user_id);
         setSections(fetchedSections);
       } catch (error) {
         console.error("Error fetching sections:", error);
@@ -112,7 +112,7 @@ export default function Sections({ storeData }: SectionsProps) {
     }
 
     fetchSections();
-  }, [storeData.user_id]);
+  }, [userData.user_id]);
 
   if (isLoading) {
     return <div>Loading...</div>;

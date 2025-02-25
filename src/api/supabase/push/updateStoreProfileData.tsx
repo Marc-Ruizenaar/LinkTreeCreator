@@ -1,7 +1,7 @@
 import { Store } from "@/types/profile";
 import { createClient } from "@/utils/supabase/client";
 
-export default async function UpdateStoreProfileData(
+export default async function updateStoreProfileData(
   data: Store,
   user_id: string,
 ) {
