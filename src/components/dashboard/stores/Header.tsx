@@ -19,11 +19,9 @@ import {
 import { MdEmail } from "react-icons/md";
 import Image from "next/image";
 import { useStoreProfile } from "@/context/StoreProviderContext";
-import { useUserProfile } from "@/context/UserProfileContext";
 
 export default function Header() {
   const { store } = useStoreProfile();
-  const { user } = useUserProfile();
 
   return (
     <Link
@@ -47,8 +45,8 @@ export default function Header() {
 
       <div className="flex flex-col justify-between py-2">
         <div>
-          <p className="text-xl font-bold">{user?.name}</p>
-          <p className="text-gray-500">@{store?.displayname}</p>
+          <p className="text-xl font-bold">{store?.displayname}</p>
+          <p className="text-gray-500">{store?.bio}</p>
         </div>
 
         <div className="flex gap-1">
