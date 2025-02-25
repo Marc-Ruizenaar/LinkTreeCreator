@@ -1,37 +1,62 @@
 "use client";
 import ProfileImage from "@/components/dashboard/profile/ProfileImage";
 import SocialMediaInput from "@/components/dashboard/profile/SocialMedia";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SocialMediaLinks } from "@/types/profile";
 import updateStoreProfileData from "@/api/supabase/push/updateStoreProfileData";
+import { useStoreProfile } from "@/context/StoreProviderContext";
 
-interface ProfileFormProps {
-  displayname: string;
-  bio: string;
-  instagram: string;
-  tiktok: string;
-  socialLinks: SocialMediaLinks;
-  setDisplayName: React.Dispatch<React.SetStateAction<string>>;
-  setBio: React.Dispatch<React.SetStateAction<string>>;
-  setInstagram: React.Dispatch<React.SetStateAction<string>>;
-  setTikTok: React.Dispatch<React.SetStateAction<string>>;
-  setSocialLinks: React.Dispatch<React.SetStateAction<SocialMediaLinks>>;
-  user_id?: string;
-}
+export default function ProfileForm() {
+  const { store, setStore } = useStoreProfile();
+  const user_id = store?.user_id;
 
-export default function ProfileForm({
-  displayname,
-  bio,
-  instagram,
-  tiktok,
-  socialLinks,
-  setDisplayName,
-  setBio,
-  setInstagram,
-  setTikTok,
-  setSocialLinks,
-  user_id,
-}: ProfileFormProps) {
+  const initialDisplayName = store?.displayname || "";
+  const initialBio = store?.bio || "";
+  const initialInstagram = store?.instagram || "";
+  const initialTikTok = store?.tiktok || "";
+
+  const [displayname, setDisplayName] = useState(initialDisplayName);
+  const [bio, setBio] = useState(initialBio);
+  const [instagram, setInstagram] = useState(initialInstagram);
+  const [tiktok, setTikTok] = useState(initialTikTok);
+  const [socialLinks, setSocialLinks] = useState<SocialMediaLinks>({
+    email: store?.email || "",
+    facebook: store?.facebook || "",
+    youtube: store?.youtube || "",
+    website: store?.website || "",
+    pinterest: store?.pinterest || "",
+    linkedin: store?.linkedin || "",
+    x: store?.x || "",
+    spotify: store?.spotify || "",
+    applePodcast: store?.applePodcast || "",
+    etsy: store?.etsy || "",
+    discord: store?.discord || "",
+    snapchat: store?.snapchat || "",
+    twitch: store?.twitch || "",
+    vimeo: store?.vimeo || "",
+  });
+
+  useEffect(() => {
+    if (store) {
+      setStore({
+        ...store,
+        displayname,
+        bio,
+        instagram,
+        tiktok,
+      });
+    }
+  }, [displayname, bio, instagram, tiktok]);
+
+  useEffect(() => {
+    if (store) {
+      setStore({
+        ...store,
+        ...socialLinks,
+      });
+    }
+  }, [socialLinks]);
+
   const [isSaving, setIsSaving] = useState(false);
   const [saveStatus, setSaveStatus] = useState("");
 
@@ -107,7 +132,10 @@ export default function ProfileForm({
         </div>
 
         <div className="flex flex-col gap-2">
-          <label htmlFor="bio">Bio:</label>
+          <label htmlFor="bio" className="flex justify-between">
+            Bio:
+            <span className="text-gray-400">{bio.length}/80</span>
+          </label>
           <input
             className="input-field"
             type="text"
@@ -116,6 +144,7 @@ export default function ProfileForm({
             value={bio}
             onChange={handleInputChange}
             required
+            maxLength={80}
           />
         </div>
 

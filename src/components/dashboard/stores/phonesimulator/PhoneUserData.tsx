@@ -21,7 +21,7 @@ export default function PhoneUserData({ displayname, bio }: Store) {
         </p>
       )}
 
-      <h2 className="text-2xl font-bold">{displayname}</h2>
+      <h2 className="text-2xl font-bold break-all">{displayname}</h2>
       <p>{bio}</p>
     </div>
   );

@@ -14,6 +14,7 @@ interface Section {
   buttonStyle: number;
   href?: string;
   buttonText?: string;
+  draft?: string;
 }
 
 interface SectionsProps {
@@ -43,7 +44,7 @@ function SectionItemDiv({ section }: { section: Section }) {
           href={section.href || "./"}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-4 block w-full rounded-xl bg-blue-600 px-5 py-3 font-bold text-white text-center"
+          className="mt-4 block w-full rounded-xl bg-blue-600 px-5 py-3 text-center font-bold text-white"
         >
           {section.buttonText}
         </Link>
@@ -80,7 +81,7 @@ function SectionItemLink({ section }: { section: Section }) {
           href={section.href || "./"}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-4 block w-full rounded-xl bg-blue-600 px-5 py-3 font-bold text-white text-center"
+          className="mt-4 block w-full rounded-xl bg-blue-600 px-5 py-3 text-center font-bold text-white"
         >
           {section.buttonText}
         </Link>
@@ -121,13 +122,15 @@ export default function Sections({ userData }: SectionsProps) {
   return (
     <div className="flex items-center justify-center">
       <div className="flex w-full flex-col gap-5">
-        {sections.map((section) =>
-          section.buttonStyle === 2 ? (
-            <SectionItemLink key={section.id} section={section} />
-          ) : (
-            <SectionItemDiv key={section.id} section={section} />
-          ),
-        )}
+        {sections
+          .filter((section) => !section.draft)
+          .map((section) =>
+            section.buttonStyle === 2 ? (
+              <SectionItemLink key={section.id} section={section} />
+            ) : (
+              <SectionItemDiv key={section.id} section={section} />
+            ),
+          )}
       </div>
     </div>
   );

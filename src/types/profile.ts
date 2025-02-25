@@ -68,4 +68,5 @@ export interface Sections {
   position?: number;
   user_id?: string;
   created_at?: string;
+  draft?: boolean;
 }

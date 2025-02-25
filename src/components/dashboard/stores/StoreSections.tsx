@@ -6,6 +6,7 @@ import {
   Draggable,
   DropResult,
 } from "@hello-pangea/dnd";
+import { BiHide } from "react-icons/bi";
 import { HiOutlineDuplicate } from "react-icons/hi";
 import { AiOutlineDelete } from "react-icons/ai";
 import { BsThreeDotsVertical } from "react-icons/bs";
@@ -17,11 +18,16 @@ import updateSectionPositions from "@/api/supabase/updateSectionPositions";
 import { Sections } from "@/types/profile";
 import deleteSection from "@/api/supabase/delete/deleteSection";
 import duplicationSection from "@/api/supabase/duplicationSection";
+import sectionChangeDraft from "@/api/supabase/push/sectionChangeDraft";
 
 export default function StoreSections() {
   const { sections, setSections } = useStoreSections();
+
+  console.log(sections);
   const [isUpdating, setIsUpdating] = useState(false);
-  const [activePopup, setActivePopup] = useState<string | null>(null);
+  const [activeSettingPopup, setActiveSettingPopup] = useState<string | null>(
+    null,
+  );
 
   const updateSection = async (updatedSections: Sections[]) => {
     try {
@@ -83,22 +89,62 @@ export default function StoreSections() {
       // Duplicate Section
       const duplicationSectionData = await duplicationSection(section_id);
 
-      // Add from useState
-      setSections((prevSections) => [
-        ...prevSections,
-        ...duplicationSectionData,
-      ]);
+      // Add to sections array and update positions
+      const updatedSections = [...sections, ...duplicationSectionData].map(
+        (section, index) => ({
+          ...section,
+          position: index,
+        }),
+      );
 
-      console.log(duplicationSectionData);
-      console.log(sections);
+      // Update positions in the database
+      const updates = updatedSections.map((section, index) => ({
+        id: section.id,
+        position: index,
+        user_id: section.user_id,
+      }));
+
+      await updateSectionPositions(updates);
+
+      // Update state with correctly positioned sections
+      setSections(updatedSections);
     } catch (error) {
-      console.error("Error updating section positions:", error);
+      console.error("Error duplicating section:", error);
     } finally {
       setIsUpdating(false);
+      setActiveSettingPopup(null);
     }
-    
   };
 
+  const handleDraft = async (
+    section_id: string,
+    draft: boolean | undefined,
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    try {
+      setIsUpdating(true);
+
+      const setDraft = !draft;
+
+      // Update section draft status
+      await sectionChangeDraft(setDraft, section_id);
+
+      // Update sections in state with the returned data
+      setSections((prevSections) => {
+        return prevSections.map((section) =>
+          section.id === section_id ? { ...section, draft: setDraft } : section
+        );
+      });
+    } catch (error) {
+      console.error("Error updating section draft status:", error);
+    } finally {
+      setIsUpdating(false);
+      setActiveSettingPopup(null);
+    }
+  };
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
@@ -111,7 +157,6 @@ export default function StoreSections() {
           >
             {sections.map((section, index) =>
               section.id ? (
-                
                 <Draggable
                   key={section.id.toString()}
                   draggableId={section.id.toString()}
@@ -130,7 +175,7 @@ export default function StoreSections() {
                       <div className="flex items-center gap-5">
                         <RxDragHandleDots2 size={30} />
                         <Image
-                          className="aspect-square object-cover overflow-hidden rounded"
+                          className="aspect-square overflow-hidden rounded object-cover"
                           src={section.imageSrc ?? "/placeholder.jpg"}
                           alt={section.title ?? ""}
                           height={60}
@@ -138,24 +183,31 @@ export default function StoreSections() {
                         />
                         <h2 className="font-bold">{section.title}</h2>
                       </div>
+                      <div className="flex items-center gap-2">
+                        {section.draft && (
+                          <p className="rounded-xl bg-gray-200 p-2 font-semibold">
+                            Draft
+                          </p>
+                        )}
 
-                      <button
-                        onClick={(e) => {
-                          e.preventDefault();
-                          e.stopPropagation();
-                          setActivePopup(
-                            activePopup === section.id
-                              ? null
-                              : (section.id as string),
-                          );
-                        }}
-                        className="z-40 flex h-8 w-8 items-center justify-center"
-                      >
-                        <BsThreeDotsVertical size={20} className="mr-2" />
-                      </button>
+                        <button
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            setActiveSettingPopup(
+                              activeSettingPopup === section.id
+                                ? null
+                                : (section.id as string),
+                            );
+                          }}
+                          className="z-40 flex h-8 w-8 items-center justify-center"
+                        >
+                          <BsThreeDotsVertical size={20} className="mr-2" />
+                        </button>
+                      </div>
 
                       {/* Popup */}
-                      {activePopup === section.id && (
+                      {activeSettingPopup === section.id && (
                         <div className="absolute right-4 top-16 z-50 flex flex-col items-baseline rounded-lg bg-white p-4 shadow-lg">
                           <button
                             onClick={(e) =>
@@ -175,6 +227,19 @@ export default function StoreSections() {
                           >
                             <AiOutlineDelete size={20} />
                             Delete section
+                          </button>
+                          <button
+                            onClick={(e) =>
+                              section.id &&
+                              handleDraft(section.id, section.draft, e)
+                            }
+                            className="flex w-full items-center gap-2 rounded p-2 text-left hover:bg-gray-200"
+                          >
+                            <BiHide />
+
+                            {section.draft
+                              ? "Publish section"
+                              : "Change to draft"}
                           </button>
                         </div>
                       )}
