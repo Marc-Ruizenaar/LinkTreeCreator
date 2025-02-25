@@ -30,7 +30,7 @@ export async function signup(formData: FormData) {
   // Create user in database
   const { } = await supabase.from("users").insert({
     name: formData.get("name") as string,
-    displayname: formData.get("username") as string,
+    username: formData.get("username") as string,
     email: formData.get("email") as string,
     user_id: data?.user?.id,
   });
