@@ -1,8 +1,8 @@
 "use client";
-
-import SectionPictureBucket from "@/api/supabase/push/sectionPictureBucket";
-import sectionPictureDatabase from "@/api/supabase/push/sectionPictureDatabase";
-import sectionUpdate from "@/api/supabase/push/sectionUpdate";
+import SectionPictureBucket from "@/api/supabase/post/sectionPictureBucket";
+import sectionPictureDatabase from "@/api/supabase/post/sectionPictureDatabase";
+import sectionUpdate from "@/api/supabase/post/sectionUpdate";
+import PhoneLayout from "@/components/dashboard/stores/phonesimulator/PhoneLayout";
 import SectionPhone from "@/components/dashboard/stores/section-id/SectionPhone";
 import { useStoreSections } from "@/context/StoreSectionsProviderContext";
 import { Sections } from "@/types/profile";
@@ -213,7 +213,7 @@ export default function SectionPage({ params }: SectionPageProps) {
               <div className={`relative ${isUploading ? "opacity-50" : ""}`}>
                 <Image
                   className="aspect-square rounded-full object-cover"
-                  src={image || "/default-avatar.png"}
+                  src={image || "/placeholder.jpg"}
                   alt="Section Image"
                   width={100}
                   height={100}
@@ -274,7 +274,7 @@ export default function SectionPage({ params }: SectionPageProps) {
           </div>
 
           <div className="mt-4 flex flex-col gap-4">
-            <label className="text-sm" htmlFor="subTitle">  
+            <label className="text-sm" htmlFor="subTitle">
               <div className="flex justify-between">
                 Subtitle
                 <span className="text-gray-400">{subTitle.length}/65</span>
@@ -323,14 +323,16 @@ export default function SectionPage({ params }: SectionPageProps) {
         {isSaved && <p className="mt-2 text-sm text-green-500">Saved...</p>}
       </form>
 
-      <SectionPhone
-        href={href}
-        title={title}
-        subTitle={subTitle}
-        buttonText={buttonText}
-        imageSrc={image}
-        buttonStyle={style}
-      />
+      <PhoneLayout position="center">
+        <SectionPhone
+          href={href}
+          title={title}
+          subTitle={subTitle}
+          buttonText={buttonText}
+          imageSrc={image}
+          buttonStyle={style}
+        />
+      </PhoneLayout>
     </div>
   );
 }

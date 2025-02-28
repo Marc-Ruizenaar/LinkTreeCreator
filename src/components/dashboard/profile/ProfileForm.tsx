@@ -3,7 +3,7 @@ import ProfileImage from "@/components/dashboard/profile/ProfileImage";
 import SocialMediaInput from "@/components/dashboard/profile/SocialMedia";
 import { useEffect, useState } from "react";
 import { SocialMediaLinks } from "@/types/profile";
-import updateStoreProfileData from "@/api/supabase/push/updateStoreProfileData";
+import updateStoreProfileData from "@/api/supabase/post/updateStoreProfileData";
 import { useStoreProfile } from "@/context/StoreProviderContext";
 
 export default function ProfileForm() {

@@ -1,9 +1,7 @@
 import { createClient } from "@/utils/supabase/client";
 
-export default async function sectionChangeDraft(setDraft, currentSection) {
+export default async function sectionChangeDraft(setDraft: boolean, currentSection: string) {
   const supabase = createClient();
-
-  console.log(setDraft);
 
   const { error, data } = await supabase
     .from("stores_sections")

@@ -1,5 +1,5 @@
 "use client";
-import { createNewStore } from "@/api/supabase/push/createNewStore";
+import { createNewStore } from "@/api/supabase/post/createNewStore";
 import { useStoreProfile } from "@/context/StoreProviderContext";
 import { useUserProfile } from "@/context/UserProfileContext";
 import { useRouter } from "next/navigation";

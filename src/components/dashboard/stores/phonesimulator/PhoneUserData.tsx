@@ -1,16 +1,14 @@
-import { useStoreProfile } from "@/context/StoreProviderContext";
 import { Store } from "@/types/profile";
 import Image from "next/image";
 
-export default function PhoneUserData({ displayname, bio }: Store) {
-  const { store } = useStoreProfile();
+export default function PhoneUserData({ displayname, bio, profilePicture }: Store) {
 
   return (
     <div className="flex flex-col items-center gap-3">
-      {store?.profilePicture ? (
+      {profilePicture ? (
         <Image
           className="rounded-full h-24 w-24 object-cover"
-          src={store.profilePicture || "/default-avatar.png"}
+          src={profilePicture || "/placeholder.jpg"}
           alt=""
           width={100}
           height={100}
@@ -21,7 +19,7 @@ export default function PhoneUserData({ displayname, bio }: Store) {
         </p>
       )}
 
-      <h2 className="text-2xl font-bold break-all">{displayname}</h2>
+      <h2 className="text-2xl font-bold break-all text-center">{displayname}</h2>
       <p>{bio}</p>
     </div>
   );

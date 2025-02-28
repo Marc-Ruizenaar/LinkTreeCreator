@@ -1,5 +1,4 @@
 ## Social linktree project
-
 As a fun solo project, I decided to build a Linktree-like SaaS platform. I intentionally chose a competitive SaaS platform so I could look the competition and see how they designed there site.
 
 ## Built With:
@@ -23,12 +22,13 @@ npm run dev
 
 ## Roadmap
 
-# Big imporvements:
-
+# Features
 - Analytics page
 
-# Minor improvements:
+# Big imporvements:
+- Refactor 
 
+# Minor improvements:
 - Sections delete: Popup "Are you sure you want to delete this section?"
 - Social media validation: At the moment you can enter everything you want
 - Refactor social media displaying. Every social media is at the moment a column, I would like to make this a array.

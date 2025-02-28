@@ -11,28 +11,6 @@ export default function Stores() {
   const { store } = useStoreProfile();
   const [storeCreatingPopup, setStoreCreatingPopup] = useState(false);
 
-  const displayname = store?.displayname || "";
-  const bio = store?.bio || "";
-  const instagram = store?.instagram || "";
-  const tiktok = store?.tiktok || "";
-
-  const socialLinks = {
-    email: store?.email || "",
-    facebook: store?.facebook || "",
-    youtube: store?.youtube || "",
-    website: store?.website || "",
-    pinterest: store?.pinterest || "",
-    linkedin: store?.linkedin || "",
-    x: store?.x || "",
-    spotify: store?.spotify || "",
-    applePodcast: store?.applePodcast || "",
-    etsy: store?.etsy || "",
-    discord: store?.discord || "",
-    snapchat: store?.snapchat || "",
-    twitch: store?.twitch || "",
-    vimeo: store?.vimeo || "",
-  };
-
   return (
     <main className="h-full">
       {store ? (
@@ -43,13 +21,7 @@ export default function Stores() {
             <NewSections />
           </div>
 
-          <PhoneSimulator
-            displayname={displayname}
-            bio={bio}
-            instagram={instagram}
-            tiktok={tiktok}
-            socialLinks={socialLinks}
-          />
+          <PhoneSimulator />
         </div>
       ) : (
         <Placeholder setStoreCreatingPopup={setStoreCreatingPopup} />

@@ -1,23 +1,21 @@
 import { useStoreSections } from "@/context/StoreSectionsProviderContext";
+import { Sections } from "@/types/profile";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function PhoneSections() {
+interface PhoneSectionsProps {
+  storeSections?: Sections[];
+}
+
+export default function PhoneSections({ storeSections }: PhoneSectionsProps) {
+  console.log(storeSections);
   const { sections } = useStoreSections();
 
-  if (!sections) {
-    return (
-      <div className="flex w-full flex-col gap-5">
-        <div className="mt-10 rounded-full bg-slate-200 px-5 py-3 font-semibold">
-          <p>New Section</p>
-        </div>
-      </div>
-    );
-  }
+  const sectionsToRender = storeSections || sections || [];
 
   return (
     <div className="flex w-full flex-col gap-5">
-      {sections
+      {sectionsToRender
         .filter((section) => !section.draft)
         .map((section) => {
           switch (section.buttonStyle) {

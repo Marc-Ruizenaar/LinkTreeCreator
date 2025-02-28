@@ -1,8 +1,8 @@
 import { useRef, useState } from "react";
 import Image from "next/image";
 import { MdEdit } from "react-icons/md";
-import profilePictureBucket from "@/api/supabase/push/profilePictureBucket";
-import profilePictureDatabase from "@/api/supabase/push/profilePictureDatabase";
+import profilePictureBucket from "@/api/supabase/post/profilePictureBucket";
+import profilePictureDatabase from "@/api/supabase/post/profilePictureDatabase";
 import { useStoreProfile } from "@/context/StoreProviderContext";
 
 export default function ProfileImage() {
@@ -60,7 +60,7 @@ export default function ProfileImage() {
         {store?.profilePicture ? (
           <Image
             className="aspect-square rounded-full object-cover"
-            src={store.profilePicture || "/default-avatar.png"}
+            src={store.profilePicture || "/placeholder.jpg"}
             alt="Profile Picture"
             width={100}
             height={100}

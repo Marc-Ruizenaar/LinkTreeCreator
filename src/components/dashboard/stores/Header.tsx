@@ -31,7 +31,7 @@ export default function Header() {
       {store?.profilePicture ? (
         <Image
           className="aspect-square object-cover overflow-hidden rounded"
-          src={store?.profilePicture || "/default-avatar.png"}
+          src={store?.profilePicture || "/placeholder.jpg"}
           alt=""
           height={120}
           width={120}

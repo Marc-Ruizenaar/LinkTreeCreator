@@ -1,11 +1,11 @@
 "use client";
 import { useStoreProfile } from "@/context/StoreProviderContext";
-import { useUser } from "@/context/UserValidationContext";
+import { useUserProfile } from "@/context/UserProfileContext";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function Sidebar() {
-  const { user } = useUser();
+  const { user } = useUserProfile();
   const { store } = useStoreProfile();
 
   const dashboardLinks = [
@@ -51,7 +51,7 @@ export default function Sidebar() {
                 <Image
                   className="h-10 w-10 rounded-full object-cover"
                   alt=""
-                  src={store?.profilePicture || "/default-avatar.png"}
+                  src={store?.profilePicture || "/placeholder.jpg"}
                   height={100}
                   width={100}
                 />
@@ -63,9 +63,9 @@ export default function Sidebar() {
 
               <p className="font-bold">
                 {user
-                  ? user.user_metadata.name.length > 10
-                    ? user.user_metadata.name.substring(0, 10) + "..."
-                    : user.user_metadata.name
+                  ? user.name.length > 10
+                    ? user.name.substring(0, 10) + "..."
+                    : user.name
                   : ""}
               </p>
             </Link>

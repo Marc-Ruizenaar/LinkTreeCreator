@@ -29,7 +29,7 @@ export default function PhoneSocials({
   socialLinks,
 }: Socials) {
   return (
-    <div className="flex flex-wrap items-center justify-center gap-2">
+    <div className="flex flex-wrap items-center justify-center gap-2 my-5">
       {tiktok && (
         <a href={`https://www.tiktok.com/@${tiktok}`} target="_blank">
           <FaTiktok size={25} />

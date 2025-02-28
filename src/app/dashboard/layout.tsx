@@ -3,7 +3,6 @@ import "@/styles/globals.css";
 import { Raleway } from "next/font/google";
 import { redirect } from "next/navigation";
 import { createClient } from "@/utils/supabase/server";
-import { UserProvider } from "@/context/UserValidationContext";
 import Sidebar from "@/components/dashboard/layout/Sidebar";
 import TopBar from "@/components/dashboard/layout/TopBar";
 import { UserProfileProvider } from "@/context/UserProfileContext";
@@ -12,6 +11,7 @@ import { StoreSection } from "@/context/StoreSectionsProviderContext";
 import GetUser from "@/api/supabase/get/getUsers";
 import GetStoreSections from "@/api/supabase/get/getStoreSections";
 import GetStores from "@/api/supabase/get/getStores";
+import { UserProvider } from "@/context/UserValidationContext";
 
 const raleway = Raleway({ subsets: ["latin"] });
 

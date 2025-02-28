@@ -1,7 +1,7 @@
 "use client";
 import { useState, ChangeEvent, FormEvent } from "react";
 import { useUserProfile } from "@/context/UserProfileContext";
-import updateUsers from "@/api/supabase/push/myProfileUpdate";
+import updateUsers from "@/api/supabase/post/myProfileUpdate";
 import { MyProfile } from "@/types/profile";
 import { IoIosClose } from "react-icons/io";
 
@@ -18,6 +18,8 @@ interface SubSetting {
 
 export default function Settings() {
   const { user, setUser } = useUserProfile();
+
+  console.log(user);
 
   const initialUser: MyProfile = {
     id: user?.id || "",

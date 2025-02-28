@@ -1,4 +1,4 @@
-import { createNewSection } from "@/api/supabase/push/createNewSection";
+import { createNewSection } from "@/api/supabase/post/createNewSection";
 import { useStoreSections } from "@/context/StoreSectionsProviderContext";
 import { useUserProfile } from "@/context/UserProfileContext";
 import { redirect } from "next/navigation";
