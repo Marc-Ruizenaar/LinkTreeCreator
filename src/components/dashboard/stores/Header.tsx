@@ -1,24 +1,8 @@
 "use client";
 import Link from "next/link";
-import {
-  FaInstagram,
-  FaTiktok,
-  FaFacebook,
-  FaYoutube,
-  FaLinkedin,
-  FaTwitter,
-  FaSpotify,
-  FaPinterest,
-  FaTwitch,
-  FaSnapchat,
-  FaDiscord,
-  FaEtsy,
-  FaVimeo,
-  FaLink,
-} from "react-icons/fa";
-import { MdEmail } from "react-icons/md";
 import Image from "next/image";
 import { useStoreProfile } from "@/context/StoreProviderContext";
+import SocialMediaIcons from "../profile/SocialMediaIcons";
 
 export default function Header() {
   const { store } = useStoreProfile();
@@ -30,7 +14,7 @@ export default function Header() {
     >
       {store?.profilePicture ? (
         <Image
-          className="aspect-square object-cover overflow-hidden rounded"
+          className="aspect-square overflow-hidden rounded object-cover"
           src={store?.profilePicture || "/placeholder.jpg"}
           alt=""
           height={120}
@@ -49,97 +33,7 @@ export default function Header() {
           <p className="text-gray-500">{store?.bio}</p>
         </div>
 
-        <div className="flex gap-1">
-          {store?.tiktok && (
-            <div>
-              <FaTiktok size={25} />
-            </div>
-          )}
-
-          {store?.instagram && (
-            <div>
-              <FaInstagram size={25} />
-            </div>
-          )}
-
-          {store?.facebook && (
-            <div>
-              <FaFacebook size={25} />
-            </div>
-          )}
-
-          {store?.youtube && (
-            <div>
-              <FaYoutube size={25} />
-            </div>
-          )}
-
-          {store?.linkedin && (
-            <div>
-              <FaLinkedin size={25} />
-            </div>
-          )}
-
-          {store?.x && (
-            <div>
-              <FaTwitter size={25} />
-            </div>
-          )}
-
-          {store?.pinterest && (
-            <div>
-              <FaPinterest size={25} />
-            </div>
-          )}
-
-          {store?.spotify && (
-            <div>
-              <FaSpotify size={25} />
-            </div>
-          )}
-
-          {store?.etsy && (
-            <div>
-              <FaEtsy size={25} />
-            </div>
-          )}
-
-          {store?.discord && (
-            <div>
-              <FaDiscord size={25} />
-            </div>
-          )}
-
-          {store?.snapchat && (
-            <div>
-              <FaSnapchat size={25} />
-            </div>
-          )}
-
-          {store?.twitch && (
-            <div>
-              <FaTwitch size={25} />
-            </div>
-          )}
-
-          {store?.vimeo && (
-            <div>
-              <FaVimeo size={25} />
-            </div>
-          )}
-
-          {store?.email && (
-            <div>
-              <MdEmail size={25} />
-            </div>
-          )}
-
-          {store?.website && (
-            <div>
-              <FaLink size={20} />
-            </div>
-          )}
-        </div>
+        <SocialMediaIcons addSpacing={false} createLink={false} />
       </div>
     </Link>
   );

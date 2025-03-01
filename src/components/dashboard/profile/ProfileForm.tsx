@@ -1,61 +1,87 @@
 "use client";
 import ProfileImage from "@/components/dashboard/profile/ProfileImage";
 import SocialMediaInput from "@/components/dashboard/profile/SocialMedia";
-import { useEffect, useState } from "react";
-import { SocialMediaLinks } from "@/types/profile";
+import { useEffect, useState, useCallback, useRef } from "react"; // Import useRef
 import updateStoreProfileData from "@/api/supabase/post/updateStoreProfileData";
 import { useStoreProfile } from "@/context/StoreProviderContext";
+import { SocialArray } from "@/types/profile";
 
 export default function ProfileForm() {
   const { store, setStore } = useStoreProfile();
   const user_id = store?.user_id;
 
-  const initialDisplayName = store?.displayname || "";
-  const initialBio = store?.bio || "";
-  const initialInstagram = store?.instagram || "";
-  const initialTikTok = store?.tiktok || "";
+  const initialDisplayName: string = store?.displayname || "";
+  const initialBio: string = store?.bio || "";
+  const initialSocialMedia: SocialArray[] = (store?.socialmedia as SocialArray[]) || [];
 
   const [displayname, setDisplayName] = useState(initialDisplayName);
   const [bio, setBio] = useState(initialBio);
-  const [instagram, setInstagram] = useState(initialInstagram);
-  const [tiktok, setTikTok] = useState(initialTikTok);
-  const [socialLinks, setSocialLinks] = useState<SocialMediaLinks>({
-    email: store?.email || "",
-    facebook: store?.facebook || "",
-    youtube: store?.youtube || "",
-    website: store?.website || "",
-    pinterest: store?.pinterest || "",
-    linkedin: store?.linkedin || "",
-    x: store?.x || "",
-    spotify: store?.spotify || "",
-    applePodcast: store?.applePodcast || "",
-    etsy: store?.etsy || "",
-    discord: store?.discord || "",
-    snapchat: store?.snapchat || "",
-    twitch: store?.twitch || "",
-    vimeo: store?.vimeo || "",
-  });
+  const [socialmedia, setSocialmedia] = useState(initialSocialMedia);
+
+  // Use useRef to store previous values for comparison
+  const prevDisplayName = useRef(initialDisplayName);
+  const prevBio = useRef(initialBio);
+  const prevSocialMedia = useRef(initialSocialMedia);
+
+  const handleInputChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const { name, value } = e.target;
+
+      if (name === "displayname") {
+        setDisplayName(value);
+      } else if (name === "bio") {
+        setBio(value);
+      } else {
+        setSocialmedia((prevSocialmedia: SocialArray[]) => {
+          const updatedSocialmedia = prevSocialmedia.map((item: SocialArray) => {
+            if (item.platform === name) {
+              return { ...item, link: value };
+            }
+            return item;
+          });
+
+          return updatedSocialmedia;
+        });
+      }
+    },
+    []
+  );
 
   useEffect(() => {
-    if (store) {
-      setStore({
-        ...store,
-        displayname,
-        bio,
-        instagram,
-        tiktok,
-      });
+    // Only update the store if displayname or bio has actually changed
+    if (displayname !== prevDisplayName.current || bio !== prevBio.current) {
+      if (store) {
+        setStore({
+          ...store,
+          displayname: displayname,
+          bio: bio,
+        });
+        prevDisplayName.current = displayname;
+        prevBio.current = bio;
+      }
     }
-  }, [displayname, bio, instagram, tiktok]);
+  }, [displayname, bio, store, setStore]);
 
   useEffect(() => {
-    if (store) {
+    // Function to compare two arrays of objects
+    const areEqual = (a: SocialArray[], b: SocialArray[]) => {
+      if (a.length !== b.length) return false;
+      for (let i = 0; i < a.length; i++) {
+        if (a[i].platform !== b[i].platform || a[i].link !== b[i].link) {
+          return false;
+        }
+      }
+      return true;
+    };
+
+    if (store && !areEqual(socialmedia, prevSocialMedia.current)) {
       setStore({
         ...store,
-        ...socialLinks,
+        socialmedia: socialmedia,
       });
+      prevSocialMedia.current = socialmedia;
     }
-  }, [socialLinks]);
+  }, [socialmedia, store, setStore]);
 
   const [isSaving, setIsSaving] = useState(false);
   const [saveStatus, setSaveStatus] = useState("");
@@ -69,9 +95,7 @@ export default function ProfileForm() {
     const data = {
       displayname: displayname,
       bio: bio,
-      tiktok: tiktok,
-      instagram: instagram,
-      ...socialLinks,
+      socialmedia: socialmedia,
     };
 
     try {
@@ -89,28 +113,6 @@ export default function ProfileForm() {
     setTimeout(() => {
       setSaveStatus("");
     }, 2000);
-  };
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-
-    switch (name) {
-      case "displayname":
-        setDisplayName(value);
-        break;
-      case "bio":
-        setBio(value);
-        break;
-      case "instagram":
-        setInstagram(value);
-        break;
-      case "tiktok":
-        setTikTok(value);
-        break;
-      default:
-        setSocialLinks((prev) => ({ ...prev, [name]: value }));
-        break;
-    }
   };
 
   return (
@@ -149,9 +151,7 @@ export default function ProfileForm() {
         </div>
 
         <SocialMediaInput
-          instagram={instagram}
-          tiktok={tiktok}
-          socialLinks={socialLinks}
+          socialLinks={socialmedia}
           onInputChange={handleInputChange}
         />
 

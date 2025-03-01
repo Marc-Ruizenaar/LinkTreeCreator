@@ -2,13 +2,13 @@
 import { notFound } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import { MyProfile, Sections, SocialMediaLinks, Store } from "@/types/profile";
+import { MyProfile, Sections, Store } from "@/types/profile";
 import getStoreBasedOnUsername from "@/api/supabase/get/getStoreBasedOnUsername";
 import getStoresData from "@/api/supabase/get/getStores";
 import PhoneUserData from "@/components/dashboard/stores/phonesimulator/PhoneUserData";
-import PhoneSocials from "@/components/dashboard/stores/phonesimulator/PhoneSocials";
 import PhoneSections from "@/components/dashboard/stores/phonesimulator/PhoneSections";
 import getSectionsPublic from "@/api/supabase/get/getSectionsPublic";
+import SocialMediaIcons from "@/components/dashboard/profile/SocialMediaIcons";
 
 export default function StorePage() {
   const params = useParams<{ username: string }>();
@@ -18,25 +18,10 @@ export default function StorePage() {
   const [displayname, setDisplayname] = useState<string>("");
   const [bio, setBio] = useState<string>("");
   const [profilePicture, setProfilePicture] = useState<string>("");
-  const [instagram, setInstagram] = useState<string>("");
-  const [tiktok, setTikTok] = useState<string>("");
-  const [socialLinks, setSocialLink] = useState<SocialMediaLinks>({
-    email: "",
-    facebook: "",
-    youtube: "",
-    website: "",
-    pinterest: "",
-    linkedin: "",
-    x: "",
-    spotify: "",
-    applePodcast: "",
-    etsy: "",
-    discord: "",
-    snapchat: "",
-    twitch: "",
-    vimeo: "",
-  });
+  const [socialLinks, setSocialLink] = useState([]);
   const [sections, setSections] = useState<Sections[] | undefined>(undefined);
+
+  console.log(socialLinks)
 
   // Fetch user data
   useEffect(() => {
@@ -61,24 +46,7 @@ export default function StorePage() {
             setDisplayname(store.displayname || "");
             setBio(store.bio || "");
             setProfilePicture(store.profilePicture || "");
-            setInstagram(store.instagram || "");
-            setTikTok(store.tiktok || "");
-            setSocialLink({
-              email: store?.email || "",
-              facebook: store?.facebook || "",
-              youtube: store?.youtube || "",
-              website: store?.website || "",
-              pinterest: store?.pinterest || "",
-              linkedin: store?.linkedin || "",
-              x: store?.x || "",
-              spotify: store?.spotify || "",
-              applePodcast: store?.applePodcast || "",
-              etsy: store?.etsy || "",
-              discord: store?.discord || "",
-              snapchat: store?.snapchat || "",
-              twitch: store?.twitch || "",
-              vimeo: store?.vimeo || "",
-            });
+            setSocialLink(store.socialmedia);
           }
         }
       } catch (error) {
@@ -110,7 +78,7 @@ export default function StorePage() {
     }
 
     fetchSections();
-  }, [storeData]); 
+  }, [storeData]);
 
   if (isLoading) {
     return null;
@@ -128,11 +96,7 @@ export default function StorePage() {
         profilePicture={profilePicture}
       />
 
-      <PhoneSocials
-        instagram={instagram}
-        tiktok={tiktok}
-        socialLinks={socialLinks}
-      />
+      <SocialMediaIcons addSpacing={true} centerIcons={true} createLink={true} socialMedia={socialLinks}/>
 
       <PhoneSections storeSections={sections} />
     </main>

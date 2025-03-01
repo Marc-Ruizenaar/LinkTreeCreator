@@ -41,7 +41,7 @@ export default function Placeholder({
             Hey {user ? user.name : "there"},
           </h1>
           <p className="mt-2">
-            Let&#39;s get started with creating your own linktree, click on the
+            Let&#39;s get started with creating your own store, click on the
             button below to start.
           </p>
         </div>

@@ -3,24 +3,9 @@ export interface Store {
   user_id?: string;
   displayname?: string;
   bio?: string;
-  email?: string;
-  instagram?: string;
-  tiktok?: string;
-  facebook?: string;
-  youtube?: string;
-  website?: string;
-  pinterest?: string;
-  linkedin?: string;
-  x?: string;
-  spotify?: string;
-  applePodcast?: string;
-  etsy?: string;
-  discord?: string;
-  snapchat?: string;
-  twitch?: string;
-  vimeo?: string;
   profilePicture?: string;
   created_at?: string;
+  socialmedia?: SocialArray[];
 }
 
 export interface MyProfile {
@@ -33,27 +18,20 @@ export interface MyProfile {
   phonenumber: string;
 }
 
-export interface SocialMediaLinks {
-  email: string;
-  facebook: string;
-  youtube: string;
-  website: string;
-  pinterest: string;
-  linkedin: string;
-  x: string;
-  spotify: string;
-  applePodcast: string;
-  etsy: string;
-  discord: string;
-  snapchat: string;
-  twitch: string;
-  vimeo: string;
+export interface SocialMediaLinksArray {
+  social: SocialArray;
 }
 
+export interface SocialArray {
+  icon: string;
+  link: string;
+  platform: string;
+  secondaryIcon: string;
+}
+
+
 export interface SocialMediaProps {
-  instagram: string;
-  tiktok: string;
-  socialLinks: SocialMediaLinks;
+  socialLinks: SocialArray[];
   onInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 

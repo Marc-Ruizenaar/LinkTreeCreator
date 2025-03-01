@@ -1,35 +1,28 @@
 ## Social linktree project
-As a fun solo project, I decided to build a Linktree-like SaaS platform. I intentionally chose a competitive SaaS platform so I could look the competition and see how they designed there site.
+As a fun solo project, I decided to build a Linktree-like SaaS platform. I intentionally chose a competitive SaaS platform so I could look the competition and see how they designed/build there site.
 
 ## Built With:
-
 Next.js
 Supabase Auth
 Supabase Database
 Supabase Bucket
 Tailwind css
 
-## Installation: 
-
-1. Clone the Repo
-2. rename the env.template to .env.local and add the keys
-3. Install all dependencies
-4. Run the site using:
-```sh
-npm run dev
-```
-5. Open browser and go to http://localhost:3000
-
 ## Roadmap
 
-# Features
+# Features to add
 - Analytics page
-
-# Big imporvements:
-- Refactor 
+- Sell products
+- Pick different designs and add your colors, typography
 
 # Minor improvements:
 - Sections delete: Popup "Are you sure you want to delete this section?"
 - Social media validation: At the moment you can enter everything you want
-- Refactor social media displaying. Every social media is at the moment a column, I would like to make this a array.
-- My store page when there are no store's made. Add some premade templates or examples.
+- Refactor: Create a button componant, popup componant, Heading componant, input componant for faster performance
+
+## What I learned
+- That I need to think more about refactoring
+- Not leaving TS errors for later
+- Better TS profiles makes it easier in the end
+- Better understanding of useContext and useState within a useContext
+- Supabase and all there basic features
