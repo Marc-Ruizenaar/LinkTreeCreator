@@ -16,8 +16,10 @@ export default function CreateAccount() {
     const formData = new FormData(target);
 
     try {
-      await signup(formData);
-
+      const result = await signup(formData);
+      if (result?.error) {
+        setError(result.error);
+      }
     } finally {
       setLoading(false);
     }
