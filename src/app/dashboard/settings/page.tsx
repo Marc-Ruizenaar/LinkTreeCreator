@@ -10,16 +10,8 @@ interface FormErrors {
   phone?: string;
 }
 
-interface SubSetting {
-  icon: string;
-  name: string;
-  link: string;
-}
-
 export default function Settings() {
   const { user, setUser } = useUserProfile();
-
-  console.log(user);
 
   const initialUser: MyProfile = {
     id: user?.id || "",
@@ -129,33 +121,8 @@ export default function Settings() {
     }
   };
 
-  const subSettings: SubSetting[] = [
-    {
-      icon: "",
-      name: "Profile",
-      link: "/dashboard/profile",
-    },
-    {
-      icon: "",
-      name: "Integrations",
-      link: "/dashboard/integrations",
-    },
-    {
-      icon: "",
-      name: "Email Notifications",
-      link: "/dashboard/email-notifications",
-    },
-  ];
-
   return (
     <main className="p-8">
-      {/* <ul className="flex gap-5">
-        {subSettings.map((link) => (
-          <li key={link.name}>
-            <a href={link.link}>{link.name}</a>
-          </li>
-        ))}
-      </ul> */}
 
       <section>
         <form onSubmit={handleUpdateUser}>
