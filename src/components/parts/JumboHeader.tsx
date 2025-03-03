@@ -11,7 +11,7 @@ export default function JumboHeader() {
           </h1>
           <p className="text-TextGray md:text-xl">
             Social is the easiest way to create a website. All of your links,
-            digital products, and bookings withing your link-website.
+            digital products, and bookings within your link-website.
           </p>
           <Link
             className="flex items-center justify-center gap-4 rounded-full bg-GreenMain px-8 py-3 text-xl font-bold text-DarkBlueMain transition-all hover:gap-8 hover:transition-all md:text-2xl"

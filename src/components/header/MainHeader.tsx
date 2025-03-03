@@ -52,40 +52,29 @@ export default function MainHeader() {
     return () => subscription.unsubscribe();
   }, [pathname, router, supabase]);
 
-  const menuLinks = [
-    {
-      href: "/",
-      text: "Home",
-    },
-  ];
+  // Scroll disabled when popup is open
+  useEffect(() => {
+    if (mobilePopup) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [mobilePopup]);
 
   return (
     <div className="relative bg-BlueMain">
       <nav className="container mx-auto flex items-center justify-between px-5 py-8">
-        <div className="z-10 flex gap-10">
+        <div className="z-20 flex gap-10">
           <Link href={"/"}>
             <Image alt="" src={"/logo.svg"} height={26} width={120} />
           </Link>
-
-          <ul className="hidden items-center gap-8 text-lg font-bold md:flex">
-            {menuLinks.map((link) => (
-              <li key={link.text}>
-                <Link
-                  href={link.href}
-                  className={
-                    pathname === link.href
-                      ? "text-white"
-                      : "text-TextGray transition-all hover:text-white hover:transition-all"
-                  }
-                >
-                  {link.text}
-                </Link>
-              </li>
-            ))}
-          </ul>
         </div>
 
-        <div className="flex justify-center">
+        <div className="flex justify-center z-20">
           <div className="hidden md:block">
             {!user ? (
               <>
@@ -112,7 +101,7 @@ export default function MainHeader() {
             )}
           </div>
 
-          <div className="relative z-10 md:hidden">
+          <div className="relative md:hidden">
             <button
               onClick={() => setMobilePopup(true)}
               className={`${mobilePopup === false ? "relative" : "hidden"} flex flex-col gap-1`}
@@ -122,7 +111,7 @@ export default function MainHeader() {
               <span className="h-[2px] w-5 bg-white"></span>
             </button>
 
-            <div className={`${mobilePopup === false ? "hidden" : "relative"}`}>
+            <div className={`z-20 ${mobilePopup === false ? "hidden" : "relative"}`}>
               <button
                 onClick={() => setMobilePopup(false)}
                 className="text-white"
@@ -136,29 +125,15 @@ export default function MainHeader() {
         <div
           className={`${
             mobilePopup === false ? "hidden" : "absolute"
-          } left-0 right-0 top-0 flex h-[calc(100vh-64px)] w-screen items-center justify-end bg-BlueMain p-10 text-end`}
+          } left-0 right-0 top-0 flex h-screen w-full z-10 items-center justify-end bg-BlueMain p-10 text-end`}
         >
           <ul className="flex flex-col gap-4 text-4xl font-bold">
-            {menuLinks.map((link) => (
-              <li key={link.text}>
-                <Link
-                  href={link.href}
-                  className={
-                    pathname === link.href
-                      ? "text-white"
-                      : "text-TextGray transition-all hover:text-white hover:transition-all"
-                  }
-                >
-                  {link.text}
-                </Link>
-              </li>
-            ))}
             {!user ? (
               <>
                 <li>
                   <Link
                     href="/login"
-                    className="text-TextGray transition-all hover:text-white hover:transition-all"
+                    className="text-white transition-all hover:text-white hover:transition-all"
                   >
                     Log in
                   </Link>
@@ -166,7 +141,7 @@ export default function MainHeader() {
                 <li>
                   <Link
                     href="/register"
-                    className="text-TextGray transition-all hover:text-white hover:transition-all"
+                    className="text-white transition-all hover:text-white hover:transition-all"
                   >
                     Sign Up
                   </Link>
@@ -176,7 +151,7 @@ export default function MainHeader() {
               <li>
                 <Link
                   href="/dashboard"
-                  className="text-TextGray transition-all hover:text-white hover:transition-all"
+                  className="text-white transition-all hover:text-white hover:transition-all"
                 >
                   Dashboard
                 </Link>
