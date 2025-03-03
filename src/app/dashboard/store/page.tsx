@@ -14,7 +14,7 @@ export default function Stores() {
   return (
     <main className="h-full">
       {store ? (
-        <div className="flex gap-5 p-8">
+        <div className="flex flex-col md:flex-row gap-5 p-8">
           <div className="w-full">
             <Header />
             <StoreSections />

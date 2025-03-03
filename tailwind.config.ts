@@ -8,10 +8,10 @@ export default {
   theme: {
     extend: {
       colors: {
-        DarkBlueMain: "#131f60",
-        BlueMain: "#6355ff",
+        DarkBlueMain: "black",
+        BlueMain: "#00A896",
         GreenMain: "#22edc8",
-        TextGray: "#b5bcff",
+        TextGray: "black",
       },
     },
   },

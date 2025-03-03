@@ -14,8 +14,8 @@ export default function Sidebar() {
   ];
 
   return (
-    <section className="sticky top-0 flex h-screen w-1/5 flex-shrink-0 flex-col justify-between gap-5 bg-blue-200 p-5">
-      <Link href={"/dashboard"}>
+    <section className="fixed bottom-0 flex h-auto w-full flex-row justify-center gap-5 border-t-2 border-r-2 border-gray-100 bg-white p-5 md:sticky md:top-0 md:h-screen md:w-1/5 md:flex-shrink-0 md:flex-col md:justify-between">
+      <Link className="hidden md:block" href={"/dashboard"}>
         <Image
           alt=""
           src={"/logo_black.svg"}
@@ -25,8 +25,8 @@ export default function Sidebar() {
         />
       </Link>
 
-      <nav>
-        <ul className="flex flex-col gap-5">
+      <nav className="md:block">
+        <ul className="flex gap-5 md:flex-col">
           {dashboardLinks.map((link) => (
             <li key={link.name}>
               <Link className="text-xl font-bold" href={link.link}>
@@ -37,7 +37,7 @@ export default function Sidebar() {
         </ul>
       </nav>
 
-      <div>
+      <div className="hidden md:block">
         <ul className="flex flex-col gap-5">
           <li>
             <Link href="/dashboard/settings">Settings</Link>

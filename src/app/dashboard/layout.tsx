@@ -59,9 +59,9 @@ export default async function RootLayout({
           <UserProfileProvider data={userData[0]}>
             <StoreProfile data={storeData?.[0]}>
               <StoreSection data={storeSectionData ?? []}>
-                <div className="flex">
+                <div className="md:flex">
                   <Sidebar />
-                  <div className="flex w-4/5 flex-col">
+                  <div className="flex w-full md:w-4/5 flex-col">
                     <TopBar />
                     {children}
                   </div>

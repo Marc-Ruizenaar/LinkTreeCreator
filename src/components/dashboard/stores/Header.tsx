@@ -27,7 +27,7 @@ export default function Header() {
         </p>
       )}
 
-      <div className="flex flex-col justify-between py-2">
+      <div className="flex flex-col justify-between py-2 gap-2">
         <div>
           <p className="text-xl font-bold">{store?.displayname}</p>
           <p className="text-gray-500">{store?.bio}</p>

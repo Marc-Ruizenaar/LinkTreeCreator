@@ -38,7 +38,7 @@ export default function NewSections() {
     <>
       <button
         onClick={HandleNewSection}
-        className="mt-4 block w-full rounded-xl bg-blue-600 px-5 py-3 font-bold text-white"
+        className="mt-4 block w-full rounded-xl bg-BlueMain px-5 py-3 font-bold text-white"
       >
         Add new section
       </button>

@@ -3,6 +3,7 @@ import { usePathname, useParams } from "next/navigation";
 import Link from "next/link";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { useUserProfile } from "@/context/UserProfileContext";
+import Image from "next/image";
 
 export default function TopBar() {
   const { user } = useUserProfile();
@@ -51,15 +52,25 @@ export default function TopBar() {
   };
 
   return (
-    <section className="flex w-full justify-between border-b-2 border-gray-100 px-8 py-5">
-      <div className="flex items-center gap-2">
+    <section className="flex w-full items-center justify-between border-b-2 border-gray-100 px-8 py-5">
+      <Link className="block md:hidden" href={"/dashboard"}>
+        <Image
+          alt=""
+          src={"/logo_black.svg"}
+          className="h-full w-24"
+          height={32}
+          width={100}
+        />
+      </Link>
+
+      <div className="items-center gap-2 md:flex">
         {backLink ? (
           <Link
             href={backLink.href}
             className="flex items-center gap-2 text-gray-600 hover:text-gray-900"
           >
             <FaArrowLeftLong size={20} />
-            <span className="text-xl font-bold">
+            <span className="hidden text-xl font-bold">
               {backLink.text} /{" "}
               <span className="text-gray-500">
                 {backLink.title.split(" / ")[1]}
@@ -74,9 +85,17 @@ export default function TopBar() {
       <Link
         target="_blank"
         href={`${process.env.NEXT_PUBLIC_BASE_URL}/${user?.username}`}
-        className="text-gray-600 hover:text-gray-900"
+        className="hidden text-gray-600 hover:text-gray-900 md:block"
       >
         {`${process.env.NEXT_PUBLIC_BASE_URL}/${user?.username}`}
+      </Link>
+
+      <Link
+        target="_blank"
+        href={`${process.env.NEXT_PUBLIC_BASE_URL}/${user?.username}`}
+        className="block text-gray-600 hover:text-gray-900 md:hidden"
+      >
+        Check store
       </Link>
     </section>
   );

@@ -19,7 +19,6 @@ import { SocialArray } from "@/types/profile";
 import { IconType } from "react-icons";
 import { useStoreProfile } from "@/context/StoreProviderContext";
 import Link from "next/link";
-import { useMemo } from "react";
 
 interface IconComponents {
   FaTiktok: IconType;
@@ -46,27 +45,59 @@ interface SocialMediaSettings {
   socialMedia?: SocialArray[];
 }
 
-export default function SocialMediaIcons({
+// This is a wrapper component that decides which implementation to use
+export default function SocialMediaIcons(props: SocialMediaSettings) {
+  // If socialMedia is provided directly, use the standalone version
+  if (props.socialMedia) {
+    return <SocialMediaIconsStandalone {...props} />;
+  } 
+  // Otherwise, use the version that requires the context
+  else {
+    return <SocialMediaIconsWithStore {...props} />;
+  }
+}
+
+// Component that doesn't use the store
+function SocialMediaIconsStandalone({
+  createLink,
+  addSpacing,
+  centerIcons,
+  socialMedia = [],
+}: SocialMediaSettings) {
+  return <RenderSocialIcons 
+    createLink={createLink}
+    addSpacing={addSpacing}
+    centerIcons={centerIcons}
+    socialMedia={socialMedia}
+  />;
+}
+
+// Component that uses the store
+function SocialMediaIconsWithStore({
+  createLink,
+  addSpacing,
+  centerIcons,
+}: Omit<SocialMediaSettings, 'socialMedia'>) {
+  // Always call the hook at the top level
+  const storeData = useStoreProfile();
+  const socialMedia = storeData?.store?.socialmedia || [];
+  
+  return <RenderSocialIcons 
+    createLink={createLink}
+    addSpacing={addSpacing}
+    centerIcons={centerIcons}
+    socialMedia={socialMedia as SocialArray[]}
+  />;
+}
+
+// Shared rendering component
+function RenderSocialIcons({
   createLink,
   addSpacing,
   centerIcons,
   socialMedia,
-}: SocialMediaSettings) {
-
-  const { store } = useStoreProfile();
-
-  // Use useMemo to derive socialMediaArray based on props and store
-  const socialMediaArray: SocialArray[] = useMemo(() => {
-    if (socialMedia) {
-      return socialMedia;
-    } else if (store?.socialmedia) {
-      return store.socialmedia;
-    } else {
-      return []; // Or any other default value you want
-    }
-  }, [socialMedia, store?.socialmedia]); // Dependencies for useMemo
-
-  if (!socialMediaArray || !Array.isArray(socialMediaArray)) {
+}: Required<Pick<SocialMediaSettings, 'socialMedia'>> & Omit<SocialMediaSettings, 'socialMedia'>) {
+  if (!socialMedia || !Array.isArray(socialMedia)) {
     return null;
   }
 
@@ -87,9 +118,12 @@ export default function SocialMediaIcons({
     MdEmail,
     FaLink,
   };
+
   return (
-    <div className={`flex gap-2 ${addSpacing === true ? "my-4" : ""} ${centerIcons === true ? "justify-center" : ""}`}>
-      {socialMediaArray.map((social: SocialArray) => {
+    <div
+      className={`flex gap-2 ${addSpacing === true ? "my-4" : ""} ${centerIcons === true ? "justify-center" : ""}`}
+    >
+      {socialMedia.map((social: SocialArray) => {
         if (!social.link) return null;
 
         const IconComponent =

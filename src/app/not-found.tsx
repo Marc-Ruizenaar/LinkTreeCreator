@@ -10,7 +10,7 @@ export default function NotFound() {
         <p>The store you are looking for does not exist.</p>
         <Link
           href="/"
-          className="block w-max rounded-xl bg-blue-600 px-5 py-3 font-bold text-white"
+          className="block w-max rounded-xl bg-BlueMain px-5 py-3 font-bold text-white"
         >
           Return to Home
         </Link>

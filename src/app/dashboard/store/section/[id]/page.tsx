@@ -128,8 +128,8 @@ export default function SectionPage({ params }: SectionPageProps) {
   }
 
   return (
-    <div className="flex gap-4 p-10">
-      <form className="w-5/6" onSubmit={handleSubmit}>
+    <div className="flex flex-col gap-4 p-10">
+      <form className="md:w-5/6 w-full" onSubmit={handleSubmit}>
         {/* Style Selection */}
         <div>
           <div className="flex flex-row items-center gap-4">
@@ -311,7 +311,7 @@ export default function SectionPage({ params }: SectionPageProps) {
 
         {/* Submit Button */}
         <button
-          className={`mt-4 block w-full rounded-xl bg-blue-600 px-5 py-3 font-bold text-white ${
+          className={`mt-4 block w-full rounded-xl bg-BlueMain px-5 py-3 font-bold text-white ${
             isLoading ? "cursor-not-allowed opacity-50" : ""
           }`}
           type="submit"
