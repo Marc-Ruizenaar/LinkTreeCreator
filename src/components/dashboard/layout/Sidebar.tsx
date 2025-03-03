@@ -11,6 +11,7 @@ export default function Sidebar() {
   const dashboardLinks = [
     { name: "Home", link: "/dashboard" },
     { name: "My Store", link: "/dashboard/store" },
+    { name: "Settings", link: "/dashboard/settings"}
   ];
 
   return (
@@ -39,9 +40,6 @@ export default function Sidebar() {
 
       <div className="hidden md:block">
         <ul className="flex flex-col gap-5">
-          <li>
-            <Link href="/dashboard/settings">Settings</Link>
-          </li>
           <li>
             <Link
               className="flex items-center gap-2"

@@ -63,7 +63,7 @@ export default function TopBar() {
         />
       </Link>
 
-      <div className="items-center gap-2 md:flex">
+      <div className="items-center hidden gap-2 md:flex">
         {backLink ? (
           <Link
             href={backLink.href}

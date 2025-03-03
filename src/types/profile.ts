@@ -26,7 +26,6 @@ export interface SocialArray {
   icon: string;
   link: string;
   platform: string;
-  secondaryIcon: string;
 }
 
 

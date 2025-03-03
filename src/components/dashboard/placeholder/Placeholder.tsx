@@ -35,7 +35,7 @@ export default function Placeholder({
 
   return (
     <section className="relative h-full">
-      <div className="flex flex-col gap-4 p-20">
+      <div className="flex flex-col gap-4 p-8 md:p-20">
         <div>
           <h1 className="text-2xl font-bold">
             Hey {user ? user.name : "there"},

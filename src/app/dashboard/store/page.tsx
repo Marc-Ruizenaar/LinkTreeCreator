@@ -14,7 +14,7 @@ export default function Stores() {
   return (
     <main className="h-full">
       {store ? (
-        <div className="flex flex-col md:flex-row gap-5 p-8">
+        <div className="flex flex-col gap-5 p-8 md:flex-row">
           <div className="w-full">
             <Header />
             <StoreSections />
@@ -28,22 +28,22 @@ export default function Stores() {
       )}
 
       {storeCreatingPopup && (
-        <div>
-          <div className="absolute left-1/2 top-1/2 z-50 flex -translate-x-1/2 -translate-y-1/2 transform flex-col items-center gap-8 rounded-2xl bg-white px-20 py-10 text-center">
-            <div>
-              <h2 className="text-2xl font-bold">Creating store</h2>
-              <p className="mt-2">
-                We are creating your store, this might take a few seconds
-              </p>
-            </div>
-            <div
-              className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-e-transparent align-[-0.125em] text-black motion-reduce:animate-[spin_1.5s_linear_infinite]"
-              role="status"
-            ></div>
+      <div>
+        <div className="absolute left-1/2 top-1/2 z-50 flex w-11/12 -translate-x-1/2 -translate-y-1/2 transform flex-col items-center gap-8 rounded-2xl bg-white px-20 py-10 text-center md:w-max">
+          <div>
+            <h2 className="text-2xl font-bold">Creating store</h2>
+            <p className="mt-2">
+              We are creating your store, this might take a few seconds
+            </p>
           </div>
-
-          <div className="absolute left-0 top-0 h-full w-full bg-slate-800/55"></div>
+          <div
+            className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-e-transparent align-[-0.125em] text-black motion-reduce:animate-[spin_1.5s_linear_infinite]"
+            role="status"
+          ></div>
         </div>
+
+        <div className="absolute left-0 top-0 h-full w-full bg-slate-800/55"></div>
+      </div>
       )}
     </main>
   );

@@ -149,19 +149,19 @@ export default function Settings() {
 
   return (
     <main className="p-8">
-      <ul className="flex gap-5">
+      {/* <ul className="flex gap-5">
         {subSettings.map((link) => (
           <li key={link.name}>
             <a href={link.link}>{link.name}</a>
           </li>
         ))}
-      </ul>
+      </ul> */}
 
       <section>
         <form onSubmit={handleUpdateUser}>
           <h2 className="mb-3 mt-5 text-xl font-bold">My Profile</h2>
 
-          <div className="flex gap-5">
+          <div className="flex gap-5 flex-col md:flex-row">
             <div>
               <label htmlFor="name">Name:</label>
               <input
@@ -188,7 +188,7 @@ export default function Settings() {
             </div>
           </div>
 
-          <div className="mt-5 flex gap-5">
+          <div className="flex gap-5 flex-col md:flex-row mt-5">
             <div>
               <label htmlFor="email">Email:</label>
               <input
@@ -240,7 +240,7 @@ export default function Settings() {
 
         {usernamePopup && (
           <div>
-            <div className="absolute left-1/2 top-1/2 z-50 flex -translate-x-1/2 -translate-y-1/2 transform flex-col items-center gap-4 bg-white p-10 text-center">
+            <div className="absolute left-1/2 top-1/2 z-50 w-11/12 md:w-max flex -translate-x-1/2 -translate-y-1/2 transform flex-col items-center gap-4 bg-white p-10 text-center">
               <button
                 className="absolute right-4 top-4"
                 onClick={() => setUsernamePopup(false)}
