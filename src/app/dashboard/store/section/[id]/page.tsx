@@ -128,8 +128,8 @@ export default function SectionPage({ params }: SectionPageProps) {
   }
 
   return (
-    <div className="flex flex-col gap-4 p-10">
-      <form className="md:w-5/6 w-full" onSubmit={handleSubmit}>
+    <div className="flex md:flex-row flex-col gap-4 p-10">
+      <form className="w-full" onSubmit={handleSubmit}>
         {/* Style Selection */}
         <div>
           <div className="flex flex-row items-center gap-4">
