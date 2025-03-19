@@ -4,9 +4,13 @@ import { MdEdit } from "react-icons/md";
 import profilePictureBucket from "@/api/supabase/post/profilePictureBucket";
 import profilePictureDatabase from "@/api/supabase/post/profilePictureDatabase";
 import { useStoreProfile } from "@/context/StoreProviderContext";
+import { useUserProfile } from "@/context/UserProfileContext";
 
 export default function ProfileImage() {
   const { store, setStore } = useStoreProfile();
+  const { user } = useUserProfile();
+
+  const usernameShort = user?.name.substring(0, 1);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isUploading, setIsUploading] = useState(false);
@@ -66,7 +70,9 @@ export default function ProfileImage() {
             height={100}
           />
         ) : (
-          <p className="flex h-[100px] w-[100px] items-center justify-center rounded-full bg-blue-600 text-4xl font-bold text-white">M</p>
+          <p className="flex h-[100px] w-[100px] items-center justify-center rounded-full bg-blue-600 text-4xl font-bold text-white">
+            {usernameShort}
+          </p>
         )}
 
         {isUploading && (

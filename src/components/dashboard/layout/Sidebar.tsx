@@ -8,14 +8,16 @@ export default function Sidebar() {
   const { user } = useUserProfile();
   const { store } = useStoreProfile();
 
+  const usernameShort = user?.name.substring(0, 1);
+
   const dashboardLinks = [
     { name: "Home", link: "/dashboard" },
     { name: "My Store", link: "/dashboard/store" },
-    { name: "Settings", link: "/dashboard/settings"}
+    { name: "Settings", link: "/dashboard/settings" },
   ];
 
   return (
-    <section className="fixed bottom-0 flex h-auto w-full flex-row justify-center gap-5 border-t-2 border-r-2 border-gray-100 bg-white p-5 md:sticky md:top-0 md:h-screen md:w-1/5 md:flex-shrink-0 md:flex-col md:justify-between">
+    <section className="fixed bottom-0 flex h-auto w-full flex-row justify-center gap-5 border-r-2 border-t-2 border-gray-100 bg-white p-5 md:sticky md:top-0 md:h-screen md:w-1/5 md:flex-shrink-0 md:flex-col md:justify-between">
       <Link className="hidden md:block" href={"/dashboard"}>
         <Image
           alt=""
@@ -54,8 +56,8 @@ export default function Sidebar() {
                   width={100}
                 />
               ) : (
-                <p className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-600 font-bold text-white">
-                  M
+                <p className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-600 font-bold uppercase text-white">
+                  {usernameShort}
                 </p>
               )}
 
