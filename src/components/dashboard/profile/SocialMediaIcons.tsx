@@ -4,7 +4,6 @@ import {
   FaFacebook,
   FaYoutube,
   FaLinkedin,
-  FaTwitter,
   FaSpotify,
   FaPinterest,
   FaTwitch,
@@ -14,6 +13,9 @@ import {
   FaVimeo,
   FaLink,
 } from "react-icons/fa";
+
+import { FaXTwitter } from "react-icons/fa6";
+
 import { MdEmail } from "react-icons/md";
 import { SocialArray } from "@/types/profile";
 import { IconType } from "react-icons";
@@ -26,7 +28,7 @@ interface IconComponents {
   FaFacebook: IconType;
   FaYoutube: IconType;
   FaLinkedin: IconType;
-  FaTwitter: IconType;
+  FaXTwitter: IconType;
   FaPinterest: IconType;
   FaSpotify: IconType;
   FaEtsy: IconType;
@@ -107,7 +109,7 @@ function RenderSocialIcons({
     FaFacebook,
     FaYoutube,
     FaLinkedin,
-    FaTwitter,
+    FaXTwitter,
     FaPinterest,
     FaSpotify,
     FaEtsy,
